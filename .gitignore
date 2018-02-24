@@ -1,0 +1,9 @@
+vendor/
+*.sln
+bin/
+.vs/
+App/Debug
+*.vcxproj
+*.vcxproj.filters
+App/stdafx.h
+App/targetver.h
