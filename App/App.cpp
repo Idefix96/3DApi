@@ -1,8 +1,8 @@
 #include <GL\glew.h>
 #include <SFML\Window.hpp>
 #include <SFML/OpenGL.hpp>
-#include "Buffer.h"
-#include "VertexDataManager.h"
+#include "Buffer/Buffer.h"
+#include "GraphicsData/VertexDataManager.h"
 #include "types.h"
 int main()
 {
@@ -19,11 +19,11 @@ int main()
 	vertex2.m_position = Position(-0.5, 0, 0);
 
 	VertexDataManager vdm;
-	vdm.setVertexData(&vertex.m_position);
+	vdm.setVertexPositionData(&vertex.m_position);
 	vdm.enablePosition();
 
 	VertexDataManager vdm2;
-	vdm2.setVertexData(&vertex2.m_position);
+	vdm2.setVertexPositionData(&vertex2.m_position);
 	vdm2.enablePosition();
 	
 	// run the main loop

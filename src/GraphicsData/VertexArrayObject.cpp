@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "VertexArrayObject.h"
 
 
@@ -22,7 +21,7 @@ void VertexArrayObject::bind()
 
 void VertexArrayObject::unbind()
 {
-	glBindVertexArray(NULL);
+	glBindVertexArray(0);
 }
 
 void VertexArrayObject::setAttribute(Attribute attribute)
