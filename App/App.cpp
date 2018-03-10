@@ -1,9 +1,7 @@
 #include <GL\glew.h>
 #include <SFML\Window.hpp>
 #include <SFML/OpenGL.hpp>
-#include "Buffer/Buffer.h"
-#include "GraphicsData/VertexDataManager.h"
-#include "types.h"
+#include "3DMesh\3DMesh.h"
 int main()
 {
 	// create the window
@@ -13,19 +11,12 @@ int main()
 	// activate the window
 	window.setActive(true);
 	glewInit();
-	Vertex vertex;
-	vertex.m_position = Position(0.5, 0, 0);
-	Vertex vertex2;
-	vertex2.m_position = Position(-0.5, 0, 0);
-
-	VertexDataManager vdm;
-	vdm.setVertexPositionData(&vertex.m_position);
-	vdm.enablePosition();
-
-	VertexDataManager vdm2;
-	vdm2.setVertexPositionData(&vertex2.m_position);
-	vdm2.enablePosition();
-	
+	PositionData pd;
+	pd.push_back(Position(0,0,0));
+	pd.push_back(Position(1, 1, 0));
+	pd.push_back(Position(-1, 1, 0));
+	Mesh3D mesh;
+	mesh.setPositionData(pd);
 	// run the main loop
 	bool running = true;
 	while (running)
@@ -48,10 +39,8 @@ int main()
 
 		// clear the buffers
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		vdm.bindVAO();
-		glDrawArrays(GL_POINTS, 0, 1);
-		vdm2.bindVAO();
-		glDrawArrays(GL_POINTS, 0, 1);
+		mesh.Draw();
+		
 		// end the current frame (internally swaps the front and back buffers)
 		window.display();
 	}

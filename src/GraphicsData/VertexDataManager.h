@@ -11,17 +11,16 @@ private:
 	VertexArrayObject m_VAO;
 	Buffer	m_VBO;
 	Buffer m_IBO;
-	GLsizeiptr m_vertexDataSize;
-	const GLvoid *m_positionDataPointer;
-	const GLvoid *m_normalDataPointer;
+	std::vector<Position> m_positionData;
+	std::vector<Normal> m_normalData;
 	Attribute m_position;
 	Attribute m_uvCoordinates;
 	Attribute m_normal;
 public:
 	VertexDataManager();
 	~VertexDataManager();
-	void setVertexPositionData(const GLvoid *data);
-	void setVertexNormalData(const GLvoid *data);
+	void setVertexPositionData(std::vector<Position> data);
+	void setVertexNormalData(std::vector<Normal> data);
 	void enablePosition();
 	void enableUV();
 	void enableNormals();

@@ -1,43 +1,57 @@
 #include "VertexDataManager.h"
 #include <iostream>
+
 VertexDataManager::VertexDataManager()
 {
-	m_positionDataPointer = NULL;
-	m_normalDataPointer = NULL;
-	m_VBO.setTarget(GL_ARRAY_BUFFER);
-	m_IBO.setTarget(GL_ELEMENT_ARRAY_BUFFER);
 
-	m_position.m_index = 0;
-	m_position.m_size = 3;
-	m_position.m_type = GL_FLOAT;
-	m_position.m_stride = sizeof(Position);
-	m_position.m_offsetPointer = (void*)0;
+	this->m_VBO.setTarget(GL_ARRAY_BUFFER);
+	this->m_IBO.setTarget(GL_ELEMENT_ARRAY_BUFFER);
+
+	this->m_position.m_index = 0;
+	this->m_position.m_size = 3;
+	this->m_position.m_type = GL_FLOAT;
+	this->m_position.m_stride = sizeof(Position);
+	this->m_position.m_offsetPointer = (void*)0;
 }
 
 
 VertexDataManager::~VertexDataManager()
 {
+	
 }
 
-void VertexDataManager::setVertexPositionData(const GLvoid *data)
+void VertexDataManager::setVertexPositionData(std::vector<Position> data)
 {	
-	this->m_positionDataPointer = data;
+	m_VAO.bind();
+	m_VBO.bind();
+	this->m_positionData = data;
+	glBufferData(GL_ARRAY_BUFFER,sizeof(Position)*this->m_positionData.size(), &this->m_positionData[0], GL_STATIC_DRAW);
+	m_VAO.setAttribute(this->m_position);
+	this->m_VAO.setAttribute(this->m_position);
+	m_VAO.enableAttribute(this->m_position.m_index);
 }
 
-void VertexDataManager::setVertexNormalData(const GLvoid *data)
+void VertexDataManager::setVertexNormalData(std::vector<Normal> data)
 {
-	this->m_normalDataPointer = data;
+	m_VAO.bind();
+	m_VBO.bind();
+	this->m_normal.m_index = this->m_VAO.getNumAttributes();
+	this->m_normal.m_size = 3;
+	this->m_normal.m_type = GL_FLOAT;
+	this->m_normal.m_stride = sizeof(Normal);
+	this->m_normal.m_offsetPointer = (void*)0;
+	this->m_normalData = data;
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(Normal), sizeof(this->m_normalData), &this->m_normalData);
+	m_VAO.setAttribute(this->m_normal);
+	m_VAO.enableAttribute(this->m_normal.m_index);
 }
 
 void VertexDataManager::enablePosition()
 {
-	m_VAO.bind();
-	m_VBO.bind();
-
-	glBufferData(GL_ARRAY_BUFFER, 3*sizeof(m_positionDataPointer), this->m_positionDataPointer, GL_STATIC_DRAW);
-	m_VAO.setAttribute(m_position);
-	m_VAO.enableAttribute(m_position.m_index);
+	this->m_VAO.bind();
+	this->m_VBO.bind();
 	
+	this->m_VAO.enableAttribute(this->m_position.m_index);
 }
 
 void VertexDataManager::enableUV()
@@ -47,16 +61,11 @@ void VertexDataManager::enableUV()
 
 void VertexDataManager::enableNormals()
 {
-	m_VAO.bind();
-	m_VBO.bind();
-	m_normal.m_index = m_VAO.getNumAttributes();
-	m_normal.m_size = 3;
-	m_normal.m_type = GL_FLOAT;
-	m_normal.m_stride = sizeof(Normal);
-	m_normal.m_offsetPointer = (void*)0;
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(m_position), sizeof(m_normal), m_normalDataPointer);
-	m_VAO.setAttribute(m_normal);
-	m_VAO.enableAttribute(m_normal.m_index);
+	this->m_VAO.bind();
+	this->m_VBO.bind();
+	
+	
+	this->m_VAO.enableAttribute(this->m_normal.m_index);
 }
 
 void VertexDataManager::enableTangents()
