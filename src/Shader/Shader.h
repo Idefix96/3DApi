@@ -15,17 +15,11 @@
 class Shader
 {
 private:
-	GLuint VertexShaderID;
-	GLuint FragmentShaderID;
-	GLuint GeometryShaderID;
-	GLuint ProgramID;
-
+	GLuint m_programId;
 public:
 	Shader();
-	void SetupVertexShader(std::string file_name);
-	void SetupGeometryShader(std::string file_name);
-	void SetupFragmentShader(std::string file_name);
-	void LinkShader();
+	void loadProgram(std::string folderName);
+	void SetupShader(std::string file_name, GLenum shaderType);
 	GLuint getShaderID();
 	void setTransformFeedbackVaryings(const char* varyings);
 };

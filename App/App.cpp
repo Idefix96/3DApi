@@ -29,9 +29,7 @@ int main()
 	mesh.setPositionData(pd);
 	mesh.setNormalData(nd);
 	Shader shader;
-	shader.SetupVertexShader("Simple/Vs.vs");
-	shader.SetupFragmentShader("Simple/Fs.fs");
-	shader.LinkShader();
+	shader.loadProgram("simple");
 	Camera camera;
 	
 	// run the main loop
