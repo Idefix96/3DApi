@@ -19,8 +19,8 @@ private:
 public:
 	VertexDataManager();
 	~VertexDataManager();
-	void setVertexPositionData(std::vector<Position> data);
-	void setVertexNormalData(std::vector<Normal> data);
+	void setVertexPositionData(PositionData data);
+	void setVertexNormalData(NormalData data);
 	void enablePosition();
 	void enableUV();
 	void enableNormals();

@@ -7,4 +7,6 @@
 
 #define MAX_NUM_VERTEX_ATTRIBUTES 5;
 
+#define SHADER_PATH "../src/Shader/GLSL/"
+
 #endif

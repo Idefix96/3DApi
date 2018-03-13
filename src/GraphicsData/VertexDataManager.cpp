@@ -20,18 +20,18 @@ VertexDataManager::~VertexDataManager()
 	
 }
 
-void VertexDataManager::setVertexPositionData(std::vector<Position> data)
+void VertexDataManager::setVertexPositionData(PositionData data)
 {	
 	m_VAO.bind();
 	m_VBO.bind();
 	this->m_positionData = data;
-	glBufferData(GL_ARRAY_BUFFER,sizeof(Position)*this->m_positionData.size(), &this->m_positionData[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,sizeof(Vertex)*this->m_positionData.size(), &this->m_positionData[0], GL_STATIC_DRAW);
 	m_VAO.setAttribute(this->m_position);
 	this->m_VAO.setAttribute(this->m_position);
 	m_VAO.enableAttribute(this->m_position.m_index);
 }
 
-void VertexDataManager::setVertexNormalData(std::vector<Normal> data)
+void VertexDataManager::setVertexNormalData(NormalData data)
 {
 	m_VAO.bind();
 	m_VBO.bind();
@@ -41,7 +41,7 @@ void VertexDataManager::setVertexNormalData(std::vector<Normal> data)
 	this->m_normal.m_stride = sizeof(Normal);
 	this->m_normal.m_offsetPointer = (void*)0;
 	this->m_normalData = data;
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(Normal), sizeof(this->m_normalData), &this->m_normalData);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(Position)*this->m_positionData.size(), sizeof(Normal)*this->m_normalData.size(), &this->m_normalData[0]);
 	m_VAO.setAttribute(this->m_normal);
 	m_VAO.enableAttribute(this->m_normal.m_index);
 }
@@ -63,7 +63,6 @@ void VertexDataManager::enableNormals()
 {
 	this->m_VAO.bind();
 	this->m_VBO.bind();
-	
 	
 	this->m_VAO.enableAttribute(this->m_normal.m_index);
 }

@@ -12,6 +12,9 @@ typedef glm::vec3 Bitangent;
 typedef glm::mat4 TranslationMatrix;
 typedef glm::mat4 RotationMatrix;
 typedef glm::mat4 ScalingMatrix;
+typedef glm::mat4 ProjectionMatrix;
+typedef glm::mat4 LookAtMatrix;
+typedef glm::vec3 Direction;
 
 typedef std::vector<Position> PositionData;
 typedef std::vector<UVCoordinates> UVData;

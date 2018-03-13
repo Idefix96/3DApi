@@ -14,7 +14,12 @@ void Mesh3D::setPositionData(PositionData data)
 {
 	this->m_positionData = data;
 	this->m_vdm.setVertexPositionData(this->m_positionData);
-	this->m_vdm.enablePosition();
+}
+
+void Mesh3D::setNormalData(NormalData data)
+{
+	this->m_normalData = data;
+	this->m_vdm.setVertexNormalData(this->m_normalData);
 }
 
 void Mesh3D::Draw()
