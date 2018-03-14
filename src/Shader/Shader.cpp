@@ -16,6 +16,8 @@ void Shader::loadProgram(std::string folderName)
 			this->SetupShader(path, GL_VERTEX_SHADER);
 		if (fs::path(p).extension() == FRAGMENT_SHADER_EXT)
 			this->SetupShader(path, GL_FRAGMENT_SHADER);
+		if (fs::path(p).extension() == GEOMETRY_SHADER_EXT)
+			this->SetupShader(path, GL_GEOMETRY_SHADER);
 	}
 	//setup final shader program
 	glLinkProgram(this->m_programId);
