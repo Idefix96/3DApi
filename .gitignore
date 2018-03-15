@@ -7,3 +7,6 @@ App/Debug
 *.vcxproj.filters
 App/stdafx.h
 App/targetver.h
+data/*
+bin/data/*
+data/

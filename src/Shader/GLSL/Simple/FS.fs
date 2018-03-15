@@ -1,8 +1,28 @@
 #version 440
 
+in vec4 NormalTF;
+
 out vec4 FragColor;
 
+uniform float AmbientIntensity;
+uniform vec4 AmbientColor;
+uniform float DirectionalIntensity;
+uniform vec4 DirectionalColor;
+uniform vec3 DirectionalDirection;
+
 void main()
-{			
-			FragColor = vec4(1.0, 0, 0, 1.0);		
+{	
+	vec3 Normal0 = vec3(NormalTF.x, NormalTF.y, NormalTF.z);
+	float DiffuseFactor = dot(normalize(Normal0), -DirectionalDirection);
+	 vec4 Diffuse;
+
+    if (DiffuseFactor > 0) {
+        Diffuse = DirectionalColor * DirectionalIntensity * DiffuseFactor;
+    }
+    else {
+        Diffuse = vec4(0, 0, 0, 0);
+    }
+	
+	vec4 Ambient = AmbientColor*AmbientIntensity;
+	FragColor = vec4(1.0, 1.0, 1.0, 1.0)*(Ambient + Diffuse);		
 }

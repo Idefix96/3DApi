@@ -21,14 +21,15 @@ typedef std::vector<UVCoordinates> UVData;
 typedef std::vector<Normal> NormalData;
 typedef std::vector<Tangent> TangentData;
 typedef std::vector<Bitangent> BitangentData;
+typedef std::vector<int> IndexData;
 
 
 typedef struct {
 	Position m_position;
 	UVCoordinates m_uv;
-	Normal m_normal;
+	/*Normal m_normal;
 	Tangent m_tangent;
-	Bitangent m_bitangent;
+	Bitangent m_bitangent;*/
 }Vertex;
 
 

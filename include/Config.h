@@ -7,6 +7,8 @@
 
 #define MAX_NUM_VERTEX_ATTRIBUTES 5;
 
+#define MODEL_PATH "../data/models/"
+
 #define SHADER_PATH "../src/Shader/GLSL/"
 #define VERTEX_SHADER_EXT ".vs"
 #define FRAGMENT_SHADER_EXT ".fs"

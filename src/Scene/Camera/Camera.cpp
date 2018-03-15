@@ -62,5 +62,6 @@ LookAtMatrix  Camera::getWorldToCameraMatrix()
 void Camera::move(Direction direction)
 {
 	this->m_position += direction;
+	this->m_center += direction;
 	this->m_worldToCamera = glm::lookAt(this->m_position, this->m_center, this->m_up);
 }
