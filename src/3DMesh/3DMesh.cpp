@@ -46,7 +46,7 @@ void Mesh3D::setTangentData(TangentData data)
 	this->m_vdm.setVertexTangentData(this->m_tangentData);
 }
 
-void Mesh3D::setBiangentData(BitangentData data)
+void Mesh3D::setBitangentData(BitangentData data)
 {
 	this->m_bitangentData = data;
 	this->m_vdm.setVertexBitangentData(this->m_bitangentData);
@@ -55,9 +55,17 @@ void Mesh3D::setBiangentData(BitangentData data)
 void Mesh3D::Draw(GLuint shader)
 {
 	this->m_vdm.bindVAO();
+	if (this->m_material.hasTexture())
+		glUniform1i(glGetUniformLocation(shader, "hasTexture"), this->m_material.hasTexture());
+	if (this->m_material.hasNormalMap())
+		glUniform1i(glGetUniformLocation(shader, "hasNormalMap"), this->m_material.hasNormalMap());
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, this->m_material.getTexture().getTexture());
-	glUniform1i(glGetUniformLocation(shader, "diffuseTexture"), 0);
+	glUniform1i(glGetUniformLocation(shader, "Texture"), 0);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, this->m_material.getNormalMap().getTexture());
+	glUniform1i(glGetUniformLocation(shader, "normalMap"), 1);
 	if (this->m_indexData.size() > 0)
 		glDrawElements(GL_TRIANGLES, this->m_indexData.size(), GL_UNSIGNED_INT, 0);
 	else

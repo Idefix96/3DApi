@@ -1,12 +1,12 @@
-#ifndef _DIFFUSETEXTURE_H_
-#define _DIFFUSETEXTURE_H_
+#ifndef _Texture_H_
+#define _Texture_H_
 
 #include "GL\glew.h"
 #include "Config.h"
 #include <string>
 #include "SOIL.h"
 
-class DiffuseTexture
+class Texture
 {
 private:
 	GLuint m_handle;

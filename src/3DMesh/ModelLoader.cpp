@@ -43,18 +43,28 @@ int ModelLoader::load(std::string fileName)
 
 		for (unsigned int j = 0; j < this->m_scene->mNumMaterials; j++)
 		{
+			Material material;
 			aiString Path;
 			if (this->m_scene->mMaterials[j]->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
 			{
-				Material material;
+
 				std::string textureFile = Path.data;
-				material.loadDiffuseTexture(MODEL_PATH + this->m_folderName + TEXTURE_SUB_PATH + textureFile);
-				this->m_material.push_back(material);
+				material.loadTexture(MODEL_PATH + this->m_folderName + TEXTURE_SUB_PATH + textureFile);
+				material.setHasTexture(true);
 			}
+			else
+				material.setHasTexture(false);
+
 			if (this->m_scene->mMaterials[j]->GetTexture(aiTextureType_NORMALS, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
 			{
-				std::cout << "NORMAAAAAAAAAl";
+				std::string textureFile = Path.data;
+				material.loadNormalMap(MODEL_PATH + this->m_folderName + TEXTURE_SUB_PATH + textureFile);
+				material.setHasNormalMap(true);
 			}
+			else
+				material.setHasNormalMap(false);
+
+			this->m_material.push_back(material);
 		}
 	}
 	return 1;

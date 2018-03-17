@@ -1,8 +1,13 @@
 #include "Material.h"
 
-void Material::loadDiffuseTexture(std::string file)
+void Material::loadTexture(std::string file)
 {
-	this->m_diffuseTexture.loadTexture(file);
+	this->m_Texture.loadTexture(file);
+}
+
+void Material::loadNormalMap(std::string file)
+{
+	this->m_normalMap.loadTexture(file);
 }
 
 void Material::setDiffuseAlphaColor(AlphaColor alphaColor)
@@ -34,7 +39,32 @@ float Material::getOpacity()
 	return this->m_opacity;
 }
 
-DiffuseTexture Material::getTexture()
+Texture Material::getTexture()
 {
-	return this->m_diffuseTexture;
+	return this->m_Texture;
+}
+
+Texture Material::getNormalMap()
+{
+	return this->m_normalMap;
+}
+
+void Material::setHasTexture(bool hasTexture)
+{
+	this->m_hasTexture = hasTexture;
+}
+
+bool Material::hasTexture()
+{
+	return this->m_hasTexture;
+}
+
+void Material::setHasNormalMap(bool hasNormalMap)
+{
+	this->m_hasNormalMap = hasNormalMap;
+}
+
+bool Material::hasNormalMap()
+{
+	return this->m_hasNormalMap;
 }

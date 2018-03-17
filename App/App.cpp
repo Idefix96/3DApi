@@ -35,12 +35,13 @@ int main()
 	mesh.setIndexData(loader.getIndexData());
 	mesh.setUVData(loader.getUvData());
 	mesh.setTangentData(loader.getTangentData());
+	mesh.setBitangentData(loader.getBitangentData());
 	mesh.setMaterial(loader.getMaterial()[0]);
 	Shader shader;
 	shader.loadProgram("simple");
 	Camera camera;
 	AmbientLight light;
-	light.setIntensity(0.1);
+	light.setIntensity(0.0);
 	light.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	DirectionalLight dirLight;
 	dirLight.setIntensity(1.0);

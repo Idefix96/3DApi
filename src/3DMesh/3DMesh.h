@@ -27,7 +27,7 @@ public:
 	void setIndexData(IndexData data);
 	void setUVData(UVData data);
 	void setTangentData(TangentData data);
-	void setBiangentData(BitangentData data);
+	void setBitangentData(BitangentData data);
 	void setMaterial(Material material);
 	void Draw(GLuint shader);
 };
