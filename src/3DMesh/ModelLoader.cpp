@@ -7,7 +7,7 @@ int ModelLoader::load(std::string fileName)
 
 	this->m_fileName = MODEL_PATH + fileName;
 	this->m_folderName = fileName.substr(0, fileName.find_last_of("/")+1);
-	this->m_scene = importer.ReadFile(this->m_fileName.c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+	this->m_scene = importer.ReadFile(this->m_fileName.c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_CalcTangentSpace| aiProcess_FlipUVs);
 	if (!this->m_scene)
 	{
 		return 0;
@@ -27,7 +27,13 @@ int ModelLoader::load(std::string fileName)
 			{
 				this->m_uvData.push_back(UVCoordinates(this->m_scene->mMeshes[i]->mTextureCoords[0][j].x, this->m_scene->mMeshes[i]->mTextureCoords[0][j].y));
 			}
+			if (this->m_scene->mMeshes[i]->HasTangentsAndBitangents())
+			{			
+				this->m_tangentData.push_back(Tangent(this->m_scene->mMeshes[i]->mTangents[j].x, this->m_scene->mMeshes[i]->mTangents[j].y, this->m_scene->mMeshes[i]->mTangents[j].z ));
+				this->m_bitangentData.push_back(Bitangent(this->m_scene->mMeshes[i]->mBitangents[j].x, this->m_scene->mMeshes[i]->mBitangents[j].y, this->m_scene->mMeshes[i]->mBitangents[j].z));
+			}
 		}
+		
 		for (unsigned int k = 0; k < this->m_scene->mMeshes[i]->mNumFaces; k++)
 		{
 			this->m_indexData.push_back(this->m_scene->mMeshes[i]->mFaces[k].mIndices[0]);
@@ -44,6 +50,10 @@ int ModelLoader::load(std::string fileName)
 				std::string textureFile = Path.data;
 				material.loadDiffuseTexture(MODEL_PATH + this->m_folderName + TEXTURE_SUB_PATH + textureFile);
 				this->m_material.push_back(material);
+			}
+			if (this->m_scene->mMaterials[j]->GetTexture(aiTextureType_NORMALS, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
+			{
+				std::cout << "NORMAAAAAAAAAl";
 			}
 		}
 	}
@@ -68,6 +78,16 @@ IndexData ModelLoader::getIndexData()
 UVData ModelLoader::getUvData()
 {
 	return this->m_uvData;
+}
+
+TangentData ModelLoader::getTangentData()
+{
+	return this->m_tangentData;
+}
+
+BitangentData ModelLoader::getBitangentData()
+{
+	return this->m_bitangentData;
 }
 
 std::vector<Material> ModelLoader::getMaterial()

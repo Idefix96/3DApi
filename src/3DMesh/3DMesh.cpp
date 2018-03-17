@@ -40,6 +40,18 @@ void Mesh3D::setUVData(UVData data)
 	this->m_vdm.setVertexUVData(this->m_UvData);
 }
 
+void Mesh3D::setTangentData(TangentData data)
+{
+	this->m_tangentData = data;
+	this->m_vdm.setVertexTangentData(this->m_tangentData);
+}
+
+void Mesh3D::setBiangentData(BitangentData data)
+{
+	this->m_bitangentData = data;
+	this->m_vdm.setVertexBitangentData(this->m_bitangentData);
+}
+
 void Mesh3D::Draw(GLuint shader)
 {
 	this->m_vdm.bindVAO();

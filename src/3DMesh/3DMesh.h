@@ -14,6 +14,8 @@ private:
 	NormalData			m_normalData;
 	IndexData			m_indexData;
 	UVData				m_UvData;
+	TangentData			m_tangentData;
+	BitangentData		m_bitangentData;
 	Material			m_material;
 
 public:
@@ -24,6 +26,8 @@ public:
 	void setNormalData(NormalData data);
 	void setIndexData(IndexData data);
 	void setUVData(UVData data);
+	void setTangentData(TangentData data);
+	void setBiangentData(BitangentData data);
 	void setMaterial(Material material);
 	void Draw(GLuint shader);
 };

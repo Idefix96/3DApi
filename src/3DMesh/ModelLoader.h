@@ -16,6 +16,8 @@ private:
 	NormalData m_normalData;
 	IndexData m_indexData;
 	UVData m_uvData;
+	TangentData m_tangentData;
+	BitangentData m_bitangentData;
 	std::vector<Material> m_material;
 	std::string m_fileName;
 	std::string m_folderName;
@@ -25,6 +27,8 @@ public:
 	NormalData getNormalData();
 	IndexData getIndexData();
 	UVData getUvData();
+	TangentData getTangentData();
+	BitangentData getBitangentData();
 	std::vector<Material> getMaterial();
 };
 

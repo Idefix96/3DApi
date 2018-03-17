@@ -15,9 +15,15 @@ private:
 	std::vector<Normal> m_normalData;
 	std::vector<int> m_indexData;
 	std::vector<UVCoordinates> m_uvData;
+	std::vector<Tangent> m_tangentData;
+	std::vector<Bitangent> m_bitangentData;
 	Attribute m_position;
 	Attribute m_uvCoordinates;
 	Attribute m_normal;
+	Attribute m_tangent;
+	Attribute m_bitangent;
+	int m_bufferActiveSize;
+
 public:
 	VertexDataManager();
 	~VertexDataManager();
@@ -25,6 +31,8 @@ public:
 	void setVertexNormalData(NormalData data);
 	void setVertexIndexData(IndexData data);
 	void setVertexUVData(UVData data);
+	void setVertexTangentData(TangentData data);
+	void setVertexBitangentData(BitangentData data);
 	void enablePosition();
 	void enableUV();
 	void enableNormals();

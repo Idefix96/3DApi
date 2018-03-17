@@ -2,7 +2,8 @@
 
 in vec4 NormalTF;
 in vec2 UV_FS; 
-
+in vec4 Tangent_FS;
+in vec4 Bitangent_FS;
 out vec4 FragColor;
 
 uniform float AmbientIntensity;
