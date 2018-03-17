@@ -29,20 +29,22 @@ int main()
 	nd.push_back(Position(3, 3, 0));
 	Mesh3D mesh;
 	ModelLoader loader;
-	std::cout <<  loader.load("Rex/Rex.fbx");
+	std::cout <<  loader.load("Rex/T-REX4.fbx");
 	mesh.setPositionData(loader.getPositionData());
 	mesh.setNormalData(loader.getNormalData());
 	mesh.setIndexData(loader.getIndexData());
+	mesh.setUVData(loader.getUvData());
+	mesh.setMaterial(loader.getMaterial()[0]);
 	Shader shader;
 	shader.loadProgram("simple");
 	Camera camera;
 	AmbientLight light;
-	light.setIntensity(0.1);
+	light.setIntensity(0.5);
 	light.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	DirectionalLight dirLight;
 	dirLight.setIntensity(0.8);
 	dirLight.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
-	dirLight.setDirection(Direction(0.0, 0.0, 1.0));
+	dirLight.setDirection(Direction(0.0, -1.0, 0.0));
 	// run the main loop
 	glClearColor(0.0, 1.0, 1.0, 1.0);
 	glEnable(GL_DEPTH_TEST);
@@ -50,9 +52,7 @@ int main()
 	bool running = true;
 	while (running)
 	{
-		static float angle = 0.0;
-		camera.move(Direction(0,0,std::sin(angle)));
-		angle += 0.1;
+		
 		// handle events
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -80,7 +80,7 @@ int main()
 		glUniform4fv(glGetUniformLocation(shader.getShaderID(), "DirectionalColor"), 1, glm::value_ptr(dirLight.getColor()));
 		glUniform1f(glGetUniformLocation(shader.getShaderID(), "DirectionalIntensity"), dirLight.getIntensity());
 		glUniform3fv(glGetUniformLocation(shader.getShaderID(), "DirectionalDirection"), 1, glm::value_ptr(dirLight.getDirection()));
-		mesh.Draw();
+		mesh.Draw(shader.getShaderID());
 		
 		// end the current frame (internally swaps the front and back buffers)
 		window.display();

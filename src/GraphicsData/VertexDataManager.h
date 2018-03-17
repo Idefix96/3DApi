@@ -14,6 +14,7 @@ private:
 	std::vector<Position> m_positionData;
 	std::vector<Normal> m_normalData;
 	std::vector<int> m_indexData;
+	std::vector<UVCoordinates> m_uvData;
 	Attribute m_position;
 	Attribute m_uvCoordinates;
 	Attribute m_normal;
@@ -23,6 +24,7 @@ public:
 	void setVertexPositionData(PositionData data);
 	void setVertexNormalData(NormalData data);
 	void setVertexIndexData(IndexData data);
+	void setVertexUVData(UVData data);
 	void enablePosition();
 	void enableUV();
 	void enableNormals();

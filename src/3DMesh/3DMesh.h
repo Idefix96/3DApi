@@ -4,6 +4,7 @@
 #include "types.h"
 #include "GraphicsData\VertexDataManager.h"
 #include "Config.h"
+#include "Material\Material.h"
 
 class Mesh3D
 {
@@ -12,6 +13,8 @@ private:
 	PositionData		m_positionData;
 	NormalData			m_normalData;
 	IndexData			m_indexData;
+	UVData				m_UvData;
+	Material			m_material;
 
 public:
 	Mesh3D();
@@ -20,7 +23,9 @@ public:
 	void setPositionData(PositionData data);
 	void setNormalData(NormalData data);
 	void setIndexData(IndexData data);
-	void Draw();
+	void setUVData(UVData data);
+	void setMaterial(Material material);
+	void Draw(GLuint shader);
 };
 
 #endif

@@ -1,6 +1,7 @@
 #version 440
 
 in vec4 NormalTF;
+in vec2 UV_FS; 
 
 out vec4 FragColor;
 
@@ -9,6 +10,7 @@ uniform vec4 AmbientColor;
 uniform float DirectionalIntensity;
 uniform vec4 DirectionalColor;
 uniform vec3 DirectionalDirection;
+uniform sampler2D diffuseTexture;
 
 void main()
 {	
@@ -24,5 +26,5 @@ void main()
     }
 	
 	vec4 Ambient = AmbientColor*AmbientIntensity;
-	FragColor = vec4(1.0, 1.0, 1.0, 1.0)*(Ambient + Diffuse);		
+	FragColor = texture2D(diffuseTexture, UV_FS)*(Ambient + Diffuse);		
 }

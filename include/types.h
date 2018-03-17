@@ -23,6 +23,7 @@ typedef std::vector<Tangent> TangentData;
 typedef std::vector<Bitangent> BitangentData;
 typedef std::vector<int> IndexData;
 
+typedef glm::vec4 AlphaColor;
 
 typedef struct {
 	Position m_position;
