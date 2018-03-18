@@ -24,10 +24,13 @@ int main()
 	pd.push_back(Position(1, 1, 0));
 	pd.push_back(Position(-1, 1, 0));
 	NormalData nd;
-	nd.push_back(Position(2, 2, 0));
-	nd.push_back(Position(-2, -2, 0));
-	nd.push_back(Position(3, 3, 0));
+	nd.push_back(Position(0,0, 1));
+	nd.push_back(Position(-2, -2, 1));
+	nd.push_back(Position(3, 3, 1));
 	Mesh3D mesh;
+	Mesh3D triangle;
+	triangle.setPositionData(pd);
+	triangle.setNormalData(nd);
 	ModelLoader loader;
 	loader.load("Rex/Rex.fbx");
 	mesh.setPositionData(loader.getPositionData());
@@ -41,7 +44,7 @@ int main()
 	shader.loadProgram("simple");
 	Camera camera;
 	AmbientLight light;
-	light.setIntensity(0.0);
+	light.setIntensity(0.1);
 	light.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	DirectionalLight dirLight;
 	dirLight.setIntensity(1.0);
@@ -83,8 +86,9 @@ int main()
 		glUniform4fv(glGetUniformLocation(shader.getShaderID(), "DirectionalColor"), 1, glm::value_ptr(dirLight.getColor()));
 		glUniform1f(glGetUniformLocation(shader.getShaderID(), "DirectionalIntensity"), dirLight.getIntensity());
 		glUniform3fv(glGetUniformLocation(shader.getShaderID(), "DirectionalDirection"), 1, glm::value_ptr(dirLight.getDirection()));
-		mesh.Draw(shader.getShaderID());
-		
+	
+		triangle.Draw(shader.getShaderID());
+			mesh.Draw(shader.getShaderID());
 		// end the current frame (internally swaps the front and back buffers)
 		window.display();
 	}

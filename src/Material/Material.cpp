@@ -1,5 +1,11 @@
 #include "Material.h"
 
+Material::Material()
+{
+	this->m_hasNormalMap = false;
+	this->m_hasTexture = false;
+}
+
 void Material::loadTexture(std::string file)
 {
 	this->m_Texture.loadTexture(file);

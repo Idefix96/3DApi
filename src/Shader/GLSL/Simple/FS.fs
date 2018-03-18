@@ -62,5 +62,5 @@ void main()
 	if (hasTexture)
 		FragColor = texture2D(diffuseTexture, UV_FS)*(Ambient + Diffuse + Specular);	
 	else
-		FragColor = vec4(1.0,1.0,1.0,1.0)*(Ambient + Diffuse);	
+		FragColor = vec4(1.0,1.0,1.0,1.0)*(Ambient + Diffuse + Specular);	
 }

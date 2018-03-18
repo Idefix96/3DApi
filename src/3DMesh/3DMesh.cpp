@@ -55,11 +55,9 @@ void Mesh3D::setBitangentData(BitangentData data)
 void Mesh3D::Draw(GLuint shader)
 {
 	this->m_vdm.bindVAO();
-	if (this->m_material.hasTexture())
-		glUniform1i(glGetUniformLocation(shader, "hasTexture"), this->m_material.hasTexture());
-	if (this->m_material.hasNormalMap())
-		glUniform1i(glGetUniformLocation(shader, "hasNormalMap"), this->m_material.hasNormalMap());
-
+	
+	glUniform1i(glGetUniformLocation(shader, "hasTexture"), this->m_material.hasTexture());
+	glUniform1i(glGetUniformLocation(shader, "hasNormalMap"), this->m_material.hasTexture());
 	glUniform1f(glGetUniformLocation(shader, "shininess"), this->m_material.getShininess());
 	glUniform1f(glGetUniformLocation(shader, "shininessStrength"), this->m_material.getShininessStrength());
 	glActiveTexture(GL_TEXTURE0);

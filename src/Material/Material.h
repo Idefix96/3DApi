@@ -17,6 +17,7 @@ private:
 	bool m_hasTexture;
 	bool m_hasNormalMap;
 public:
+	Material();
 	void setDiffuseAlphaColor(AlphaColor alphaColor);
 	void loadTexture(std::string file);
 	void loadNormalMap(std::string file);
