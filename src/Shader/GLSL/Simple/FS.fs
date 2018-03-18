@@ -1,5 +1,6 @@
 #version 440
 
+in vec4 Position_FS;
 in vec4 NormalTF;
 in vec2 UV_FS; 
 in vec4 Tangent_FS;
@@ -16,6 +17,9 @@ uniform sampler2D diffuseTexture;
 uniform sampler2D normalMap;
 uniform bool hasTexture;
 uniform bool hasNormalMap;
+uniform float shininess;
+uniform float shininessStrength;
+uniform vec3 cameraPosition;
 
 void main()
 {	
@@ -32,19 +36,31 @@ void main()
 		NewNormal = TBN * BumpMapNormal;
 		Normal0 = normalize(NewNormal);
 	}
-	float DiffuseFactor = dot(normalize(Normal0), -DirectionalDirection);
-	vec4 Diffuse;
-	
-    if (DiffuseFactor > 0) {
-        Diffuse = DirectionalColor * DirectionalIntensity * DiffuseFactor;
-    }
-    else {
-        Diffuse = vec4(0, 0, 0, 0);
-    }
 	
 	vec4 Ambient = AmbientColor*AmbientIntensity;
+	
+	float DiffuseFactor = dot(normalize(Normal0), -DirectionalDirection);
+	vec4 Diffuse;
+	vec4 Specular;
+    if (DiffuseFactor > 0) {
+        Diffuse = DirectionalColor * DirectionalIntensity * DiffuseFactor;
+    
+
+		vec3 VertexToEye = normalize(cameraPosition - Position_FS.xyz);
+		vec3 LightReflect = normalize(reflect(DirectionalDirection, Normal0));
+		float SpecularFactor = dot(VertexToEye, LightReflect);
+		 if (SpecularFactor > 0) {
+            SpecularFactor = pow(SpecularFactor, shininess);
+            Specular = vec4(DirectionalColor * shininessStrength * SpecularFactor);
+        }
+	}
+    else {
+        Diffuse = vec4(0, 0, 0, 0);
+		Specular = vec4(0, 0, 0, 0);
+    }
+	 
 	if (hasTexture)
-		FragColor = texture2D(diffuseTexture, UV_FS)*(Ambient + Diffuse);	
+		FragColor = texture2D(diffuseTexture, UV_FS)*(Ambient + Diffuse + Specular);	
 	else
 		FragColor = vec4(1.0,1.0,1.0,1.0)*(Ambient + Diffuse);	
 }

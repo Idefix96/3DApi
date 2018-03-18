@@ -6,6 +6,7 @@ layout (location = 2) in vec2 UV;
 layout (location = 3) in vec3 Tangent;
 layout (location = 4) in vec3 Bitangent;
 
+out vec4 Position_FS;
 out vec4 NormalTF;
 out vec2 UV_FS; 
 out vec4 Tangent_FS;
@@ -16,6 +17,7 @@ uniform mat4 gWorldToCamera;
 
 void main()
 {	
+	Position_FS = gWorldToCamera*vec4(Position.x, Position.y, Position.z, 1.0);
 	UV_FS = UV;
 	Tangent_FS = gWorldToCamera*vec4(Tangent.x, Tangent.y, Tangent.z, 0.0);
 	Bitangent_FS = gWorldToCamera*vec4(Bitangent.x, Bitangent.y, Bitangent.z, 0.0);

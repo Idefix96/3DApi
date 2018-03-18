@@ -11,7 +11,8 @@ private:
 	AlphaColor m_diffuseAlphaColor;
 	Texture m_Texture;
 	Texture m_normalMap;
-	float m_specularFactor;
+	float m_shininess;
+	float m_shininessStrength;
 	float	m_opacity;
 	bool m_hasTexture;
 	bool m_hasNormalMap;
@@ -19,10 +20,12 @@ public:
 	void setDiffuseAlphaColor(AlphaColor alphaColor);
 	void loadTexture(std::string file);
 	void loadNormalMap(std::string file);
-	void setSpecularFactor(float specularFactor);
+	void setShininess(float shininess);
+	void setShininessStrength(float shininessStrength);
 	void setOpacity(float opacity);
 	AlphaColor getDiffuseAlphaColor();
-	float getSpecularFactor();
+	float getShininess();
+	float getShininessStrength();
 	float getOpacity();
 	Texture getTexture();
 	Texture getNormalMap();

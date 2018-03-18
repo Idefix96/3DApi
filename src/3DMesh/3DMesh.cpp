@@ -60,6 +60,8 @@ void Mesh3D::Draw(GLuint shader)
 	if (this->m_material.hasNormalMap())
 		glUniform1i(glGetUniformLocation(shader, "hasNormalMap"), this->m_material.hasNormalMap());
 
+	glUniform1f(glGetUniformLocation(shader, "shininess"), this->m_material.getShininess());
+	glUniform1f(glGetUniformLocation(shader, "shininessStrength"), this->m_material.getShininessStrength());
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, this->m_material.getTexture().getTexture());
 	glUniform1i(glGetUniformLocation(shader, "Texture"), 0);

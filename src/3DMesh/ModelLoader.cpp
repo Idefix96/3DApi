@@ -45,6 +45,14 @@ int ModelLoader::load(std::string fileName)
 		{
 			Material material;
 			aiString Path;
+
+			float shininess;
+			float shininessStrength;
+			this->m_scene->mMaterials[j]->Get(AI_MATKEY_SHININESS, shininess);
+			this->m_scene->mMaterials[j]->Get(AI_MATKEY_SHININESS_STRENGTH, shininessStrength);
+			material.setShininess(shininess);
+			material.setShininessStrength(shininessStrength);
+
 			if (this->m_scene->mMaterials[j]->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
 			{
 

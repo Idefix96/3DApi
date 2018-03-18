@@ -14,9 +14,14 @@ void Material::setDiffuseAlphaColor(AlphaColor alphaColor)
 {
 	this->m_diffuseAlphaColor = alphaColor;
 }
-void Material::setSpecularFactor(float specularFactor)
+void Material::setShininess(float shininess)
 {
-	this->m_specularFactor = specularFactor;
+	this->m_shininess = shininess;
+}
+
+void Material::setShininessStrength(float shininessStrength)
+{
+	this->m_shininessStrength = shininessStrength;
 }
 
 void Material::setOpacity(float opacity)
@@ -29,9 +34,14 @@ AlphaColor Material::getDiffuseAlphaColor()
 	return this->m_diffuseAlphaColor;
 }
 
-float Material::getSpecularFactor()
+float Material::getShininess()
 {
-	return this->m_specularFactor;
+	return this->m_shininess;
+}
+
+float Material::getShininessStrength()
+{
+	return this->m_shininessStrength;
 }
 
 float Material::getOpacity()

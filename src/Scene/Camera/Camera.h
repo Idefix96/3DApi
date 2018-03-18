@@ -31,6 +31,7 @@ public:
 	void setPerspectiveMatrix(float fovy, float aspect, float zNear, float zFar);
 	ProjectionMatrix getPerspectiveMatrix();
 	LookAtMatrix getWorldToCameraMatrix();
+	Position getPosition();
 	void move(Direction direction);
 };
 

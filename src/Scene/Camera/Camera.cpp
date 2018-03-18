@@ -59,6 +59,11 @@ LookAtMatrix  Camera::getWorldToCameraMatrix()
 	return this->m_worldToCamera;
 }
 
+Position Camera::getPosition()
+{
+	return this->m_position;
+}
+
 void Camera::move(Direction direction)
 {
 	this->m_position += direction;
