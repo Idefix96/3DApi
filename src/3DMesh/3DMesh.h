@@ -8,7 +8,7 @@
 
 class Mesh3D
 {
-private:
+protected:
 	VertexDataManager	m_vdm;
 	PositionData		m_positionData;
 	NormalData			m_normalData;

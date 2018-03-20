@@ -66,6 +66,7 @@ void Mesh3D::Draw(GLuint shader)
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, this->m_material.getNormalMap().getTexture());
 	glUniform1i(glGetUniformLocation(shader, "normalMap"), 1);
+	
 	if (this->m_indexData.size() > 0)
 		glDrawElements(GL_TRIANGLES, this->m_indexData.size(), GL_UNSIGNED_INT, 0);
 	else

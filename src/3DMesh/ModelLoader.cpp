@@ -78,6 +78,11 @@ int ModelLoader::load(std::string fileName)
 	return 1;
 }
 
+int ModelLoader::loadSkeleton()
+{
+	return 1;
+}
+
 PositionData ModelLoader::getPositionData()
 {
 	return this->m_positionData;
@@ -111,4 +116,9 @@ BitangentData ModelLoader::getBitangentData()
 std::vector<Material> ModelLoader::getMaterial()
 {
 		return this->m_material;
+}
+
+Skeleton ModelLoader::getSkeleton()
+{
+	return m_skeleton;
 }

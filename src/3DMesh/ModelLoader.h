@@ -21,8 +21,10 @@ private:
 	std::vector<Material> m_material;
 	std::string m_fileName;
 	std::string m_folderName;
+	Skeleton m_skeleton;
 public:
 	int load(std::string fileName);
+	int loadSkeleton();
 	PositionData getPositionData();
 	NormalData getNormalData();
 	IndexData getIndexData();
@@ -30,6 +32,7 @@ public:
 	TangentData getTangentData();
 	BitangentData getBitangentData();
 	std::vector<Material> getMaterial();
+	Skeleton getSkeleton();
 };
 
 #endif

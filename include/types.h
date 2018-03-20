@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "glm\glm.hpp"
+#include <map>
 
 typedef glm::vec3 Position;
 typedef glm::vec2 UVCoordinates;
@@ -33,6 +34,16 @@ typedef struct {
 	Bitangent m_bitangent;
 }Vertex;
 
+typedef struct Bone
+{
+	unsigned int			m_index;
+	std::string				m_name;
+	glm::mat4				m_offsetMatrix;
+	glm::mat4				m_transformationMatrix;
+	Bone*					m_parent;
+	glm::mat4				m_animationTransform;
+}Bone;
 
+typedef std::map<std::string, Bone> Skeleton;
 
 #endif

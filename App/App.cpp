@@ -9,12 +9,24 @@
 #include <math.h>
 #include "Scene\Light\AmbientLight.h"
 #include "Scene\Light\DirectionalLight.h"
+#include "BasicBodies\Box\Box.h"
+#include "AntTweakBar.h"
 
 int main()
 {
 	// create the window
 	sf::Window window(sf::VideoMode(800, 600), "OpenGL", sf::Style::Default, sf::ContextSettings(32));
 	window.setVerticalSyncEnabled(true);
+
+	TwInit(TW_OPENGL, NULL);
+	TwWindowSize(800, 600);
+	// Create a tweak bar
+	TwBar *bar = TwNewBar("Particles");
+	TwDefine(" GLOBAL help='This example shows how to integrate AntTweakBar with SFML and OpenGL.' "); // Message added to the help bar.
+
+																									   // Change bar position
+	int barPos[2] = { 16, 240 };
+	TwSetParam(bar, NULL, "position", TW_PARAM_INT32, 2, &barPos);
 
 	// activate the window
 	window.setActive(true);
@@ -24,9 +36,9 @@ int main()
 	pd.push_back(Position(1, 1, 0));
 	pd.push_back(Position(-1, 1, 0));
 	NormalData nd;
-	nd.push_back(Position(0,0, 1));
-	nd.push_back(Position(-2, -2, 1));
-	nd.push_back(Position(3, 3, 1));
+	nd.push_back(Direction(0,0, 1));
+	nd.push_back(Direction(-2, -2, 1));
+	nd.push_back(Direction(3, 3, 1));
 	Mesh3D mesh;
 	Mesh3D triangle;
 	triangle.setPositionData(pd);
@@ -44,16 +56,17 @@ int main()
 	shader.loadProgram("simple");
 	Camera camera;
 	AmbientLight light;
-	light.setIntensity(0.1);
+	light.setIntensity(0.2);
 	light.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	DirectionalLight dirLight;
 	dirLight.setIntensity(1.0);
 	dirLight.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
-	dirLight.setDirection(Direction(0.0, -1.0, -1.0));
+	dirLight.setDirection(Direction(0.0, -1.0, 0.0));
+	Box box;
 	// run the main loop
 	glClearColor(0.4, 0.4, 0.4, 1.0);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	bool running = true;
 	while (running)
 	{
@@ -87,8 +100,10 @@ int main()
 		glUniform1f(glGetUniformLocation(shader.getShaderID(), "DirectionalIntensity"), dirLight.getIntensity());
 		glUniform3fv(glGetUniformLocation(shader.getShaderID(), "DirectionalDirection"), 1, glm::value_ptr(dirLight.getDirection()));
 	
-		triangle.Draw(shader.getShaderID());
+		//triangle.Draw(shader.getShaderID());
 			mesh.Draw(shader.getShaderID());
+			box.Draw(shader.getShaderID());
+	
 		// end the current frame (internally swaps the front and back buffers)
 		window.display();
 	}

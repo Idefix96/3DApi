@@ -29,6 +29,7 @@ public:
 	void setZFar(float zFar);
 	void setPerspectiveMatrix();
 	void setPerspectiveMatrix(float fovy, float aspect, float zNear, float zFar);
+	void rotate(Direction rotation);
 	ProjectionMatrix getPerspectiveMatrix();
 	LookAtMatrix getWorldToCameraMatrix();
 	Position getPosition();

@@ -107,7 +107,7 @@ void VertexDataManager::setVertexIndexData(IndexData data)
 	this->m_VAO.bind();
 	this->m_IBO.bind();
 	this->m_indexData = data;
-
+	std::cout << "INdex " << this->m_indexData.size();
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*this->m_indexData.size(), &this->m_indexData[0], GL_STATIC_DRAW);
 }
 
