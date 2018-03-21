@@ -10,7 +10,6 @@
 #include "Scene\Light\AmbientLight.h"
 #include "Scene\Light\DirectionalLight.h"
 #include "BasicBodies\Box\Box.h"
-#include "AntTweakBar.h"
 #include "Shapes\BoundingBox.h"
 
 int main()
@@ -18,16 +17,6 @@ int main()
 	// create the window
 	sf::Window window(sf::VideoMode(800, 600), "OpenGL", sf::Style::Default, sf::ContextSettings(32));
 	window.setVerticalSyncEnabled(true);
-
-	TwInit(TW_OPENGL, NULL);
-	TwWindowSize(800, 600);
-	// Create a tweak bar
-	TwBar *bar = TwNewBar("Particles");
-	TwDefine(" GLOBAL help='This example shows how to integrate AntTweakBar with SFML and OpenGL.' "); // Message added to the help bar.
-
-																									   // Change bar position
-	int barPos[2] = { 16, 240 };
-	TwSetParam(bar, NULL, "position", TW_PARAM_INT32, 2, &barPos);
 
 	// activate the window
 	window.setActive(true);
@@ -103,7 +92,6 @@ int main()
 		glUniform1f(glGetUniformLocation(shader.getShaderID(), "DirectionalIntensity"), dirLight.getIntensity());
 		glUniform3fv(glGetUniformLocation(shader.getShaderID(), "DirectionalDirection"), 1, glm::value_ptr(dirLight.getDirection()));
 	
-		//triangle.Draw(shader.getShaderID());
 			mesh.Draw(shader.getShaderID());
 			box.Draw(shader.getShaderID());
 	
