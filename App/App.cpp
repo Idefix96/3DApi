@@ -11,6 +11,7 @@
 #include "Scene\Light\DirectionalLight.h"
 #include "BasicBodies\Box\Box.h"
 #include "AntTweakBar.h"
+#include "Shapes\BoundingBox.h"
 
 int main()
 {
@@ -56,13 +57,13 @@ int main()
 	shader.loadProgram("simple");
 	Camera camera;
 	AmbientLight light;
-	light.setIntensity(0.2);
+	light.setIntensity(0.3);
 	light.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	DirectionalLight dirLight;
 	dirLight.setIntensity(1.0);
 	dirLight.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
-	dirLight.setDirection(Direction(0.0, -1.0, 0.0));
-	Box box;
+	dirLight.setDirection(Direction(0.0, -1.0, -1.0));
+	Box box(2.0,1.0,1.0);
 	// run the main loop
 	glClearColor(0.4, 0.4, 0.4, 1.0);
 	glEnable(GL_DEPTH_TEST);

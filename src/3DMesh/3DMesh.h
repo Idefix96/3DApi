@@ -18,6 +18,9 @@ protected:
 	BitangentData		m_bitangentData;
 	Material			m_material;
 
+	Position			m_currentPosition;
+	Rotation			m_currentRotation;
+
 public:
 	Mesh3D();
 	~Mesh3D();

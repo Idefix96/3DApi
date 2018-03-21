@@ -16,6 +16,7 @@ typedef glm::mat4 ScalingMatrix;
 typedef glm::mat4 ProjectionMatrix;
 typedef glm::mat4 LookAtMatrix;
 typedef glm::vec3 Direction;
+typedef glm::quat Rotation;
 
 typedef std::vector<Position> PositionData;
 typedef std::vector<UVCoordinates> UVData;

@@ -11,8 +11,7 @@ private:
 	float m_depth;
 
 public:
-	Box();
-	Box(float width, float height, float depth);
+	Box(float width = 1.0f, float height = 1.0f, float depth = 1.0f);
 };
 
 #endif

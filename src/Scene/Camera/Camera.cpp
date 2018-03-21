@@ -7,7 +7,7 @@ Camera::Camera()
 	this->m_zNear = 0.01;
 	this->m_zFar = 1000;
 	this->m_perspectiveMatrix = glm::perspective(this->m_fovy, this->m_aspect, this->m_zNear, this->m_zFar);
-	this->m_position = Position(0, 0, 2);
+	this->m_position = Position(2, 2, 2);
 	this->m_center = Position(0, 0, 1);
 	this->m_lookDir = this->m_center - this->m_position;
 	this->m_up = Direction(0, 1, 0);

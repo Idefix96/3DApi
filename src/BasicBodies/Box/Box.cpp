@@ -1,6 +1,9 @@
 #include "Box.h"
 
-Box::Box()
+Box::Box(float width, float height, float depth) :
+	m_width(width),
+	m_height(height),
+	m_depth(depth)
 {
 	PositionData pd;
 	NormalData nd;
@@ -112,80 +115,5 @@ Box::Box()
 	
 	this->setPositionData(pd);
 	this->setNormalData(nd);
-	this->setIndexData(id);
-
-	//TODO: set index data
-}
-
-Box::Box(float width, float height, float depth)
-{
-	PositionData pd;
-	NormalData nd;
-	this->m_width = width;
-	this->m_height = height;
-	this->m_depth = depth;
-	float halfWidth = this->m_width / 2.0f;
-	float halfHeight = this->m_height / 2.0f;
-	float halfDepth = this->m_depth / 2.0f;
-
-	//bottom
-	pd.push_back(Position(-halfWidth, -halfHeight, -halfDepth));
-	pd.push_back(Position(-halfWidth, -halfHeight, halfDepth));
-	pd.push_back(Position(halfWidth, -halfHeight, halfDepth));
-	pd.push_back(Position(halfWidth, -halfHeight, -halfDepth));
-	nd.push_back(Direction(0, -1, 0));
-	nd.push_back(Direction(0, -1, 0));
-	nd.push_back(Direction(0, -1, 0));
-	nd.push_back(Direction(0, -1, 0));
-	/*
-	//left
-	pd.push_back(Position(-halfWidth, -halfHeight, -halfDepth));
-	pd.push_back(Position(-halfWidth, -halfHeight, halfDepth));
-	pd.push_back(Position(-halfWidth, halfHeight, halfDepth));
-	pd.push_back(Position(-halfWidth, halfHeight, -halfDepth));
-	nd.push_back(Direction(-1, 0, 0));
-	nd.push_back(Direction(-1, 0, 0));
-	nd.push_back(Direction(-1, 0, 0));
-	nd.push_back(Direction(-1, 0, 0));
-	//right
-	pd.push_back(Position(halfWidth, -halfHeight, -halfDepth));
-	pd.push_back(Position(halfWidth, -halfHeight, halfDepth));
-	pd.push_back(Position(halfWidth, halfHeight, halfDepth));
-	pd.push_back(Position(halfWidth, halfHeight, -halfDepth));
-	nd.push_back(Direction(1, 0, 0));
-	nd.push_back(Direction(1, 0, 0));
-	nd.push_back(Direction(1, 0, 0));
-	nd.push_back(Direction(1, 0, 0));
-	//front
-	pd.push_back(Position(halfWidth, -halfHeight, halfDepth));
-	pd.push_back(Position(-halfWidth, -halfHeight, halfDepth));
-	pd.push_back(Position(halfWidth, halfHeight, halfDepth));
-	pd.push_back(Position(-halfWidth, halfHeight, halfDepth));
-	nd.push_back(Direction(0, 0, 1));
-	nd.push_back(Direction(0, 0, 1));
-	nd.push_back(Direction(0, 0, 1));
-	nd.push_back(Direction(0, 0, 1));
-	//back
-	pd.push_back(Position(halfWidth, -halfHeight, -halfDepth));
-	pd.push_back(Position(-halfWidth, -halfHeight, -halfDepth));
-	pd.push_back(Position(halfWidth, halfHeight, -halfDepth));
-	pd.push_back(Position(-halfWidth, halfHeight, -halfDepth));
-	nd.push_back(Direction(0, 0, -1));
-	nd.push_back(Direction(0, 0, -1));
-	nd.push_back(Direction(0, 0, -1));
-	nd.push_back(Direction(0, 0, -1));
-	//top
-	pd.push_back(Position(-halfWidth, halfHeight, -halfDepth));
-	pd.push_back(Position(-halfWidth, halfHeight, halfDepth));
-	pd.push_back(Position(halfWidth, halfHeight, halfDepth));
-	pd.push_back(Position(halfWidth, halfHeight, -halfDepth));
-	nd.push_back(Direction(0, 1, 0));
-	nd.push_back(Direction(0, 1, 0));
-	nd.push_back(Direction(0, 1, 0));
-	nd.push_back(Direction(0, 1, 0));
-	*/
-	this->setPositionData(pd);
-	this->setNormalData(nd);
-
-	//TODO: set index data
+	this->setIndexData(id);	
 }
