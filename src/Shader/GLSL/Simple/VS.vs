@@ -14,6 +14,9 @@ out vec4 Bitangent_FS;
 
 uniform mat4 gPersp;
 uniform mat4 gWorldToCamera;
+uniform mat4 gTranslation;
+uniform mat4 gRotation;
+uniform mat4 gScaling;
 
 void main()
 {	
@@ -22,5 +25,5 @@ void main()
 	Tangent_FS = gWorldToCamera*vec4(Tangent.x, Tangent.y, Tangent.z, 0.0);
 	Bitangent_FS = gWorldToCamera*vec4(Bitangent.x, Bitangent.y, Bitangent.z, 0.0);
 	NormalTF = 	gWorldToCamera*vec4(Normal.x, Normal.y, Normal.z, 0.0);
-	gl_Position = gPersp*gWorldToCamera*vec4(Position.x, Position.y, Position.z, 1.0);
+	gl_Position = gPersp*gWorldToCamera*gScaling*gRotation*gTranslation*vec4(Position.x, Position.y, Position.z, 1.0);
 }

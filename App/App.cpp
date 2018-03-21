@@ -53,6 +53,7 @@ int main()
 	mesh.setTangentData(loader.getTangentData());
 	mesh.setBitangentData(loader.getBitangentData());
 	mesh.setMaterial(loader.getMaterial()[0]);
+	//mesh.translate(Position(0, -2, 0));
 	Shader shader;
 	shader.loadProgram("simple");
 	Camera camera;
@@ -64,6 +65,7 @@ int main()
 	dirLight.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	dirLight.setDirection(Direction(0.0, -1.0, -1.0));
 	Box box(2.0,1.0,1.0);
+//	box.translate(Position(0, -2, 0));
 	// run the main loop
 	glClearColor(0.4, 0.4, 0.4, 1.0);
 	glEnable(GL_DEPTH_TEST);

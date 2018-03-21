@@ -3,7 +3,9 @@
 
 Mesh3D::Mesh3D()
 {
-
+	m_translationMatrix = TranslationMatrix(1.0f);
+	m_rotationMatrix = RotationMatrix(1.0f);
+	m_scalingMatrix = ScalingMatrix(1.0f);
 }
 
 Mesh3D::~Mesh3D()
@@ -60,6 +62,9 @@ void Mesh3D::Draw(GLuint shader)
 	glUniform1i(glGetUniformLocation(shader, "hasNormalMap"), this->m_material.hasTexture());
 	glUniform1f(glGetUniformLocation(shader, "shininess"), this->m_material.getShininess());
 	glUniform1f(glGetUniformLocation(shader, "shininessStrength"), this->m_material.getShininessStrength());
+	glUniformMatrix4fv(glGetUniformLocation(shader, "gScaling"), 1, GL_FALSE, glm::value_ptr(this->m_scalingMatrix));
+	glUniformMatrix4fv(glGetUniformLocation(shader, "gRotation"), 1, GL_FALSE, glm::value_ptr(this->m_rotationMatrix));
+	glUniformMatrix4fv(glGetUniformLocation(shader, "gTranslation"), 1, GL_FALSE, glm::value_ptr(this->m_translationMatrix));
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, this->m_material.getTexture().getTexture());
 	glUniform1i(glGetUniformLocation(shader, "Texture"), 0);
@@ -71,4 +76,24 @@ void Mesh3D::Draw(GLuint shader)
 		glDrawElements(GL_TRIANGLES, this->m_indexData.size(), GL_UNSIGNED_INT, 0);
 	else
 		glDrawArrays(GL_TRIANGLES, 0, this->m_positionData.size());
+}
+
+void Mesh3D::rotate(Direction angle)
+{
+	this->m_rotationMatrix = glm::rotate(glm::mat4(1.0f), angle.x, glm::vec3(1, 0, 0));
+	this->m_rotationMatrix *= glm::rotate(glm::mat4(1.0f), angle.y, glm::vec3(0, 1, 0));
+	this->m_rotationMatrix *= glm::rotate(glm::mat4(1.0f), angle.z, glm::vec3(0, 0, 1));
+}
+
+
+void Mesh3D::translate(Position position)
+{
+	this->m_translationMatrix = glm::translate(glm::mat4(1.0f), position);
+}
+
+void Mesh3D::scale(Scale scale)
+{
+	this->m_scalingMatrix[0][0] = scale.x;
+	this->m_scalingMatrix[1][1] = scale.y;
+	this->m_scalingMatrix[2][2] = scale.z;
 }

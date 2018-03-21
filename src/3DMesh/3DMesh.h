@@ -5,6 +5,9 @@
 #include "GraphicsData\VertexDataManager.h"
 #include "Config.h"
 #include "Material\Material.h"
+#include <glm/gtc/type_ptr.hpp>
+#include "glm/gtx/transform.hpp"
+
 
 class Mesh3D
 {
@@ -20,6 +23,9 @@ protected:
 
 	Position			m_currentPosition;
 	Rotation			m_currentRotation;
+	RotationMatrix		m_rotationMatrix;
+	TranslationMatrix	m_translationMatrix;
+	ScalingMatrix		m_scalingMatrix;
 
 public:
 	Mesh3D();
@@ -33,6 +39,9 @@ public:
 	void setBitangentData(BitangentData data);
 	void setMaterial(Material material);
 	void Draw(GLuint shader);
+	void rotate(Direction angle);
+	void translate(Position position);
+	void scale(Scale scale);
 };
 
 #endif
