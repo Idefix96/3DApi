@@ -18,4 +18,7 @@
 #define FRAGMENT_SHADER_EXT ".fs"
 #define GEOMETRY_SHADER_EXT ".gs"
 
+#define BULLET_TIME_STEP 1/60.f
+#define BULLET_SUBSTEPS 10
+
 #endif

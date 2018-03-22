@@ -11,13 +11,14 @@
 #include "Scene\Light\DirectionalLight.h"
 #include "BasicBodies\Box\Box.h"
 #include "Shapes\BoundingBox.h"
-
+#include "Physics\Physics.h"
+#include "BasicBodies\Plane\Plane.h"
 int main()
 {
 	// create the window
 	sf::Window window(sf::VideoMode(800, 600), "OpenGL", sf::Style::Default, sf::ContextSettings(32));
 	window.setVerticalSyncEnabled(true);
-
+	Physics physics;
 	// activate the window
 	window.setActive(true);
 	glewInit();
@@ -53,7 +54,8 @@ int main()
 	dirLight.setIntensity(1.0);
 	dirLight.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	dirLight.setDirection(Direction(0.0, -1.0, -1.0));
-	Box box(2.0,1.0,1.0);
+	Box box;
+	Plane plane(Position(0,0,0), Direction(1,0,0), Direction(0,0,1), 2.0f, 2.0f);
 //	box.translate(Position(0, -2, 0));
 	// run the main loop
 	glClearColor(0.4, 0.4, 0.4, 1.0);
@@ -62,7 +64,7 @@ int main()
 	bool running = true;
 	while (running)
 	{
-		
+		physics.update();
 		// handle events
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -94,7 +96,7 @@ int main()
 	
 			mesh.Draw(shader.getShaderID());
 			box.Draw(shader.getShaderID());
-	
+			plane.Draw(shader.getShaderID());
 		// end the current frame (internally swaps the front and back buffers)
 		window.display();
 	}

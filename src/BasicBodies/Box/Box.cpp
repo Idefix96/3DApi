@@ -8,9 +8,7 @@ Box::Box(float width, float height, float depth) :
 	PositionData pd;
 	NormalData nd;
 	IndexData id;
-	this->m_width = 1.0f;
-	this->m_height = 1.0f;
-	this->m_depth = 1.0f;
+	
 	float halfWidth = this->m_width / 2.0f;
 	float halfHeight = this->m_height / 2.0f;
 	float halfDepth = this->m_depth / 2.0f;

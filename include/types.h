@@ -20,6 +20,7 @@ typedef glm::mat4 LookAtMatrix;
 typedef glm::vec3 Direction;
 typedef glm::quat Rotation;
 typedef glm::vec3 Scale;
+typedef glm::vec4 AlphaColor;
 
 typedef std::vector<Position> PositionData;
 typedef std::vector<UVCoordinates> UVData;
@@ -27,8 +28,7 @@ typedef std::vector<Normal> NormalData;
 typedef std::vector<Tangent> TangentData;
 typedef std::vector<Bitangent> BitangentData;
 typedef std::vector<int> IndexData;
-
-typedef glm::vec4 AlphaColor;
+typedef std::vector<AlphaColor> ColorData;
 
 typedef struct {
 	Position m_position;
@@ -36,6 +36,7 @@ typedef struct {
 	Normal m_normal;
 	Tangent m_tangent;
 	Bitangent m_bitangent;
+	AlphaColor m_color;
 }Vertex;
 
 typedef struct Bone
