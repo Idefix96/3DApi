@@ -3,6 +3,8 @@
 
 #include "types.h"
 #include "glm\gtc\matrix_transform.hpp"
+#include "SFML\Window.hpp"
+#include "Config.h"
 
 class Camera
 {
@@ -16,8 +18,16 @@ private:
 	Direction			m_lookDir;
 	Direction			m_up;
 	Direction			m_xAxis;
+	Direction			m_forward;
 	ProjectionMatrix	m_perspectiveMatrix;
 	LookAtMatrix		m_worldToCamera;
+	bool				m_isKeyPressedForward;
+	bool				m_isKeyPressedBackwards;
+	bool				m_isLeftMouseButtonPressed;
+	Position2D			m_mousePosition;
+	Position2D			m_mousePositionLastFrame;
+	Direction			m_currentRotation;
+	RotationMatrix		m_rotationMatrix;
 
 public:
 	Camera();
@@ -34,6 +44,14 @@ public:
 	LookAtMatrix getWorldToCameraMatrix();
 	Position getPosition();
 	void move(Direction direction);
+	void move(float delta);
+
+	void controller(sf::Keyboard::Key key, bool pressed);
+	void controller(sf::Mouse::Button button, bool pressed);
+	void setControlForwardPressed(bool pressed);
+	void setControlBackwardPressed(bool pressed);
+	void setLeftMouseButtonPressed(bool pressed);
+	void doAction();
 };
 
 #endif

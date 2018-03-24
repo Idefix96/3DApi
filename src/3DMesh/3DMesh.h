@@ -20,12 +20,15 @@ protected:
 	TangentData			m_tangentData;
 	BitangentData		m_bitangentData;
 	Material			m_material;
+	ColorData			m_colorData;
 
 	Position			m_currentPosition;
 	Rotation			m_currentRotation;
 	RotationMatrix		m_rotationMatrix;
 	TranslationMatrix	m_translationMatrix;
 	ScalingMatrix		m_scalingMatrix;
+
+	bool				m_hasColor;
 
 public:
 	Mesh3D();
@@ -37,11 +40,13 @@ public:
 	void setUVData(UVData data);
 	void setTangentData(TangentData data);
 	void setBitangentData(BitangentData data);
+	void setColorData(ColorData data);
 	void setMaterial(Material material);
 	void Draw(GLuint shader);
 	void rotate(Direction angle);
 	void translate(Position position);
 	void scale(Scale scale);
+	bool hasColor();
 };
 
 #endif

@@ -54,10 +54,22 @@ void Mesh3D::setBitangentData(BitangentData data)
 	this->m_vdm.setVertexBitangentData(this->m_bitangentData);
 }
 
+void Mesh3D::setColorData(ColorData data)
+{
+	this->m_colorData = data;
+	this->m_vdm.setVertexColorData(this->m_colorData);
+	this->m_hasColor = true;
+}
+
+bool Mesh3D::hasColor()
+{
+	return this->m_hasColor;
+}
+
 void Mesh3D::Draw(GLuint shader)
 {
 	this->m_vdm.bindVAO();
-	
+	glUniform1i(glGetUniformLocation(shader, "hasColor"), this->hasColor());
 	glUniform1i(glGetUniformLocation(shader, "hasTexture"), this->m_material.hasTexture());
 	glUniform1i(glGetUniformLocation(shader, "hasNormalMap"), this->m_material.hasTexture());
 	glUniform1f(glGetUniformLocation(shader, "shininess"), this->m_material.getShininess());

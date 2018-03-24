@@ -5,6 +5,7 @@ in vec4 NormalTF;
 in vec2 UV_FS; 
 in vec4 Tangent_FS;
 in vec4 Bitangent_FS;
+in vec4 Color_FS;
 
 out vec4 FragColor;
 
@@ -16,6 +17,7 @@ uniform vec3 DirectionalDirection;
 uniform sampler2D diffuseTexture;
 uniform sampler2D normalMap;
 uniform bool hasTexture;
+uniform bool hasColor;
 uniform bool hasNormalMap;
 uniform float shininess;
 uniform float shininessStrength;
@@ -62,5 +64,10 @@ void main()
 	if (hasTexture)
 		FragColor = texture2D(diffuseTexture, UV_FS)*(Ambient + Diffuse + Specular);	
 	else
-		FragColor = vec4(1.0,1.0,1.0,1.0)*(Ambient + Diffuse + Specular);	
+		{
+		if (hasColor)
+			FragColor = Color_FS*(Ambient + Diffuse + Specular);
+		else
+			FragColor = vec4(1.0,1.0,1.0,1.0)*(Ambient + Diffuse + Specular);	
+		}
 }

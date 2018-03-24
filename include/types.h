@@ -21,6 +21,7 @@ typedef glm::vec3 Direction;
 typedef glm::quat Rotation;
 typedef glm::vec3 Scale;
 typedef glm::vec4 AlphaColor;
+typedef glm::vec2 Position2D;
 
 typedef std::vector<Position> PositionData;
 typedef std::vector<UVCoordinates> UVData;

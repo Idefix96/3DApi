@@ -96,10 +96,28 @@ void VertexDataManager::setVertexBitangentData(BitangentData data)
 	this->m_bitangent.m_offsetPointer = (void*)(m_bufferActiveSize);
 	this->m_bitangentData = data;
 	
-	glBufferSubData(GL_ARRAY_BUFFER, m_bufferActiveSize, sizeof(Tangent)*this->m_bitangentData.size(), &this->m_bitangentData[0]);
+	glBufferSubData(GL_ARRAY_BUFFER, m_bufferActiveSize, sizeof(Bitangent)*this->m_bitangentData.size(), &this->m_bitangentData[0]);
 	m_bufferActiveSize += sizeof(Bitangent)*this->m_bitangentData.size();
 	m_VAO.setAttribute(this->m_bitangent);
 	m_VAO.enableAttribute(this->m_bitangent.m_index);
+}
+
+void VertexDataManager::setVertexColorData(ColorData data)
+{
+	this->m_VAO.bind();
+	this->m_VBO.bind();
+
+	this->m_color.m_index = 5;
+	this->m_color.m_size = 4;
+	this->m_color.m_type = GL_FLOAT;
+	this->m_color.m_stride = sizeof(AlphaColor);
+	this->m_color.m_offsetPointer = (void*)(m_bufferActiveSize);
+	this->m_colorData = data;
+
+	glBufferSubData(GL_ARRAY_BUFFER, m_bufferActiveSize, sizeof(AlphaColor)*this->m_colorData.size(), &this->m_colorData[0]);
+	m_bufferActiveSize += sizeof(AlphaColor)*this->m_colorData.size();
+	m_VAO.setAttribute(this->m_color);
+	m_VAO.enableAttribute(this->m_color.m_index);
 }
 
 void VertexDataManager::setVertexIndexData(IndexData data)

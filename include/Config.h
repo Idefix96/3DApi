@@ -21,4 +21,8 @@
 #define BULLET_TIME_STEP 1/60.f
 #define BULLET_SUBSTEPS 10
 
+#define CAMERA_FORWARD_KEY sf::Keyboard::W
+#define CAMERA_BACKWARD_KEY sf::Keyboard::S
+#define CAMERA_DEFAULT_SPEED 0.01f
+
 #endif

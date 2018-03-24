@@ -55,7 +55,13 @@ int main()
 	dirLight.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	dirLight.setDirection(Direction(0.0, -1.0, -1.0));
 	Box box;
-	Plane plane(Position(0,0,0), Direction(1,0,0), Direction(0,0,1), 2.0f, 2.0f);
+	ColorData cd;
+	cd.push_back(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	cd.push_back(glm::vec4(0.0, 1.0, 0, 1.0));
+	cd.push_back(glm::vec4(0, 0, 1, 1.0));
+	cd.push_back(glm::vec4(1.0, 0.0, 0, 1.0));
+	Plane plane(Position(0,0,0), Direction(1,0,0), Direction(0,0,1), 12.0f, 12.0f);
+	plane.setColorData(cd);
 //	box.translate(Position(0, -2, 0));
 	// run the main loop
 	glClearColor(0.4, 0.4, 0.4, 1.0);
@@ -71,16 +77,35 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 			{
-				// end the program
 				running = false;
 			}
 			else if (event.type == sf::Event::Resized)
 			{
-				// adjust the viewport when the window is resized
 				glViewport(0, 0, event.size.width, event.size.height);
 			}
+			else if (event.type == sf::Event::KeyPressed)
+			{
+				camera.controller(event.key.code, true);
+			}
+			else if (event.type == sf::Event::KeyReleased)
+			{
+				camera.controller(event.key.code, false);
+			}
+
+			else if (event.type == sf::Event::MouseButtonPressed)
+			{
+				camera.controller(event.mouseButton.button, true);
+			}
+
+			else if (event.type == sf::Event::MouseButtonReleased)
+			{
+				camera.controller(event.mouseButton.button, false);
+			}
+			
 		}
 
+		camera.doAction();
+	
 		// clear the buffers
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

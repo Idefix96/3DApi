@@ -17,11 +17,13 @@ private:
 	std::vector<UVCoordinates> m_uvData;
 	std::vector<Tangent> m_tangentData;
 	std::vector<Bitangent> m_bitangentData;
+	std::vector<AlphaColor> m_colorData;
 	Attribute m_position;
 	Attribute m_uvCoordinates;
 	Attribute m_normal;
 	Attribute m_tangent;
 	Attribute m_bitangent;
+	Attribute m_color;
 	int m_bufferActiveSize;
 
 public:
@@ -33,6 +35,7 @@ public:
 	void setVertexUVData(UVData data);
 	void setVertexTangentData(TangentData data);
 	void setVertexBitangentData(BitangentData data);
+	void setVertexColorData(ColorData data);
 	void enablePosition();
 	void enableUV();
 	void enableNormals();
