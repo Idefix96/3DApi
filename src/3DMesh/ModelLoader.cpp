@@ -53,6 +53,10 @@ int ModelLoader::load(std::string fileName)
 			material.setShininess(shininess);
 			material.setShininessStrength(shininessStrength);
 
+			aiColor4D diffuse;
+			if (aiGetMaterialColor(this->m_scene->mMaterials[j], AI_MATKEY_COLOR_DIFFUSE, &diffuse) == AI_SUCCESS)
+				material.setDiffuseAlphaColor(glm::vec4(diffuse.r, diffuse.g, diffuse.b, diffuse.a));
+
 			if (this->m_scene->mMaterials[j]->GetTexture(aiTextureType_DIFFUSE, 0, &Path, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
 			{
 

@@ -25,4 +25,6 @@
 #define CAMERA_BACKWARD_KEY sf::Keyboard::S
 #define CAMERA_DEFAULT_SPEED 0.01f
 
+#define FONT_PATH "../data/fonts/"
+
 #endif

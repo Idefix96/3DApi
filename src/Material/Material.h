@@ -13,9 +13,10 @@ private:
 	Texture m_normalMap;
 	float m_shininess;
 	float m_shininessStrength;
-	float	m_opacity;
+	float m_opacity;
 	bool m_hasTexture;
 	bool m_hasNormalMap;
+	bool m_hasColor;
 public:
 	Material();
 	void setDiffuseAlphaColor(AlphaColor alphaColor);
@@ -34,6 +35,8 @@ public:
 	bool hasTexture();
 	void setHasNormalMap(bool hasNormalMap);
 	bool hasNormalMap();
+	bool hasColor();
+
 };
 
 #endif

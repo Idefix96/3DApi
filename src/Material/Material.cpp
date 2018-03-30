@@ -19,6 +19,7 @@ void Material::loadNormalMap(std::string file)
 void Material::setDiffuseAlphaColor(AlphaColor alphaColor)
 {
 	this->m_diffuseAlphaColor = alphaColor;
+	this->m_hasColor = true;
 }
 void Material::setShininess(float shininess)
 {
@@ -83,4 +84,9 @@ void Material::setHasNormalMap(bool hasNormalMap)
 bool Material::hasNormalMap()
 {
 	return this->m_hasNormalMap;
+}
+
+bool Material::hasColor()
+{
+	return this->m_hasColor;
 }

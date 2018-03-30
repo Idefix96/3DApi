@@ -67,13 +67,16 @@ bool Mesh3D::hasColor()
 }
 
 void Mesh3D::Draw(GLuint shader)
-{
+{	
+	glUseProgram(shader);
 	this->m_vdm.bindVAO();
 	glUniform1i(glGetUniformLocation(shader, "hasColor"), this->hasColor());
 	glUniform1i(glGetUniformLocation(shader, "hasTexture"), this->m_material.hasTexture());
 	glUniform1i(glGetUniformLocation(shader, "hasNormalMap"), this->m_material.hasTexture());
+	glUniform1i(glGetUniformLocation(shader, "hasMaterialColor"), this->m_material.hasColor());
 	glUniform1f(glGetUniformLocation(shader, "shininess"), this->m_material.getShininess());
 	glUniform1f(glGetUniformLocation(shader, "shininessStrength"), this->m_material.getShininessStrength());
+	glUniform4fv(glGetUniformLocation(shader, "materialColor"), 1, glm::value_ptr(this->m_material.getDiffuseAlphaColor()));
 	glUniformMatrix4fv(glGetUniformLocation(shader, "gScaling"), 1, GL_FALSE, glm::value_ptr(this->m_scalingMatrix));
 	glUniformMatrix4fv(glGetUniformLocation(shader, "gRotation"), 1, GL_FALSE, glm::value_ptr(this->m_rotationMatrix));
 	glUniformMatrix4fv(glGetUniformLocation(shader, "gTranslation"), 1, GL_FALSE, glm::value_ptr(this->m_translationMatrix));
@@ -88,6 +91,8 @@ void Mesh3D::Draw(GLuint shader)
 		glDrawElements(GL_TRIANGLES, this->m_indexData.size(), GL_UNSIGNED_INT, 0);
 	else
 		glDrawArrays(GL_TRIANGLES, 0, this->m_positionData.size());
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D,NULL);
 }
 
 void Mesh3D::rotate(Direction angle)

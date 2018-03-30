@@ -10,3 +10,5 @@ App/targetver.h
 data/*
 bin/data/*
 data/
+*.sublime-*
+App/App.cpp

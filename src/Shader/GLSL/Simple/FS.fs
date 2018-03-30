@@ -1,4 +1,4 @@
-#version 440
+#version 440 compatibility
 
 in vec4 Position_FS;
 in vec4 NormalTF;
@@ -18,10 +18,12 @@ uniform sampler2D diffuseTexture;
 uniform sampler2D normalMap;
 uniform bool hasTexture;
 uniform bool hasColor;
+uniform bool hasMaterialColor;
 uniform bool hasNormalMap;
 uniform float shininess;
 uniform float shininessStrength;
 uniform vec3 cameraPosition;
+uniform vec4 materialColor;
 
 void main()
 {	
@@ -67,6 +69,9 @@ void main()
 		{
 		if (hasColor)
 			FragColor = Color_FS*(Ambient + Diffuse + Specular);
+		else
+		if (hasMaterialColor)
+			FragColor = materialColor*(Ambient + Diffuse + Specular);
 		else
 			FragColor = vec4(1.0,1.0,1.0,1.0)*(Ambient + Diffuse + Specular);	
 		}
