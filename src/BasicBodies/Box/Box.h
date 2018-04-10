@@ -8,8 +8,7 @@ class Box: public Mesh3D
 private:
 	float m_width;
 	float m_height;
-	float m_depth;
-
+	float m_depth;	
 public:
 	Box(float width = 1.0f, float height = 1.0f, float depth = 1.0f);
 };

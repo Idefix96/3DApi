@@ -8,7 +8,7 @@
 
 #include "Shader\Shader.h"
 #include <glm/gtc/type_ptr.hpp>
-
+#include <iostream>
 class Text
 {
 
@@ -22,7 +22,7 @@ private:
 public:
 	Text();
 	void render(const char *text, float x, float y, float sx, float sy);
-	void display(Shader shader);
+	void display(GLuint shader, const char *text, float x, float y, float sx, float sy, float width, float height);
 };
 
 #endif

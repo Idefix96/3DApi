@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 900
+#define WINDOW_HEIGHT 720
 #define WINDOW_NAME "window"
 
 #define MAX_NUM_VERTEX_ATTRIBUTES 5;
