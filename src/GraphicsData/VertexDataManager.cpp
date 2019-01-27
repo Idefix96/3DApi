@@ -30,7 +30,7 @@ void VertexDataManager::setVertexPositionData(PositionData data)
 	m_bufferActiveSize = sizeof(Position)*this->m_positionData.size();
 	m_VAO.setAttribute(this->m_position);
 	this->m_VAO.setAttribute(this->m_position);
-	m_VAO.enableAttribute(this->m_position.m_index);
+	this->m_VAO.enableAttribute(this->m_position.m_index);
 }
 
 void VertexDataManager::setVertexNormalData(NormalData data)

@@ -46,7 +46,7 @@ void main()
 	float DiffuseFactor = dot(normalize(Normal0), -DirectionalDirection);
 	vec4 Diffuse;
 	vec4 Specular;
-    if (DiffuseFactor > 0) {
+    if (DiffuseFactor > 0.0) {
         Diffuse = DirectionalColor * DirectionalIntensity * DiffuseFactor;
     
 
