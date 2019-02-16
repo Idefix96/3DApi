@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "3DMesh.h"
 #include <iostream>
 
@@ -54,6 +55,18 @@ void Mesh3D::setBitangentData(BitangentData data)
 	this->m_vdm.setVertexBitangentData(this->m_bitangentData);
 }
 
+void Mesh3D::setVertexWeightData(VertexWeightData data)
+{
+	this->m_vertexWeightData = data;
+	this->m_vdm.setVertexWeightData(this->m_vertexWeightData);
+}
+
+void Mesh3D::setBoneIdData(BoneIdData data)
+{
+	this->m_boneIdData = data;
+	this->m_vdm.setVertexBoneIdData(this->m_boneIdData);
+}
+
 void Mesh3D::setColorData(ColorData data)
 {
 	this->m_colorData = data;
@@ -80,6 +93,9 @@ void Mesh3D::Draw(GLuint shader)
 	glUniformMatrix4fv(glGetUniformLocation(shader, "gScaling"), 1, GL_FALSE, glm::value_ptr(this->m_scalingMatrix));
 	glUniformMatrix4fv(glGetUniformLocation(shader, "gRotation"), 1, GL_FALSE, glm::value_ptr(this->m_rotationMatrix));
 	glUniformMatrix4fv(glGetUniformLocation(shader, "gTranslation"), 1, GL_FALSE, glm::value_ptr(this->m_translationMatrix));
+	glUniformMatrix4fv(glGetUniformLocation(shader, "gBoneTransform"), 25, GL_FALSE, &this->m_MainSkeleton.m_skeletonTransformation[0][0][0]);
+	
+	glUniform1i(glGetUniformLocation(shader, "numBones"), 20);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, this->m_material.getTexture().getTexture());
 	glUniform1i(glGetUniformLocation(shader, "diffuseTexture"), 0);
@@ -113,4 +129,42 @@ void Mesh3D::scale(Scale scale)
 	this->m_scalingMatrix[0][0] = scale.x;
 	this->m_scalingMatrix[1][1] = scale.y;
 	this->m_scalingMatrix[2][2] = scale.z;
+}
+
+void Mesh3D::setShader(Shader* shader)
+{
+	this->m_shader = shader;
+}
+
+Shader* Mesh3D::getShader()
+{
+	return this->m_shader;
+}
+
+void Mesh3D::setSkeleton(BoneHierarchy skeleton)
+{
+	this->m_skeleton = skeleton;
+	UINT count = 0;
+	for (BoneHierarchy::iterator it = m_skeleton.begin(); it != m_skeleton.end(); ++it)
+	{
+		this->m_skeletonTransformation[count] = glm::mat4(1.0);
+		count++;
+	}
+
+}
+
+void Mesh3D::setSkeleton(Skeleton skeleton)
+{
+	this->m_MainSkeleton = skeleton;
+	UINT count = 0;
+	for (BoneHierarchy::iterator it = m_skeleton.begin(); it != m_skeleton.end(); ++it)
+	{
+		this->m_skeletonTransformation[count] = glm::mat4(1.0);
+		count++;
+	}
+}
+
+void Mesh3D::update()
+{
+	this->m_MainSkeleton.rotateBoneGlobal("neck", glm::vec3(0, 1, 0), 0.1f);
 }

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Plane.h"
 
 Plane::Plane(Position offset, Direction direction1, Direction direction2, float width, float length) :

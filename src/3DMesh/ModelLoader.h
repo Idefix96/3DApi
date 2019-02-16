@@ -7,6 +7,8 @@
 #include "Config.h"
 #include "types.h"
 #include "Material\Material.h"
+#include "3DMesh\3DMesh.h"
+#include "Animation\Skeleton.h"
 
 class ModelLoader
 {
@@ -18,13 +20,16 @@ private:
 	UVData m_uvData;
 	TangentData m_tangentData;
 	BitangentData m_bitangentData;
+	VertexWeightData m_vertexWeightData;
+	BoneIdData m_boneIdData;
 	std::vector<Material> m_material;
 	std::string m_fileName;
 	std::string m_folderName;
-	Skeleton m_skeleton;
+	BoneHierarchy m_skeleton;
+	Skeleton m_mainSkeleton;
 public:
-	int load(std::string fileName);
-	int loadSkeleton();
+	int load(std::string fileName, Mesh3D* mesh);
+	int loadSkeleton(aiMesh* mesh);
 	PositionData getPositionData();
 	NormalData getNormalData();
 	IndexData getIndexData();
@@ -32,7 +37,8 @@ public:
 	TangentData getTangentData();
 	BitangentData getBitangentData();
 	std::vector<Material> getMaterial();
-	Skeleton getSkeleton();
+	BoneHierarchy getSkeleton();
+	glm::mat4 AiToGlmMatrix(aiMatrix4x4 aiMat);
 };
 
 #endif

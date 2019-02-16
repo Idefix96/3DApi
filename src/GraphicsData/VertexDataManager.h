@@ -18,12 +18,16 @@ private:
 	std::vector<Tangent> m_tangentData;
 	std::vector<Bitangent> m_bitangentData;
 	std::vector<AlphaColor> m_colorData;
+	std::vector<VertexWeights> m_vertexWeightData;
+	std::vector<BoneId> m_boneIdData;
 	Attribute m_position;
 	Attribute m_uvCoordinates;
 	Attribute m_normal;
 	Attribute m_tangent;
 	Attribute m_bitangent;
 	Attribute m_color;
+	Attribute m_vertexWeight;
+	Attribute m_boneId;
 	int m_bufferActiveSize;
 
 public:
@@ -36,11 +40,15 @@ public:
 	void setVertexTangentData(TangentData data);
 	void setVertexBitangentData(BitangentData data);
 	void setVertexColorData(ColorData data);
+	void setVertexWeightData(VertexWeightData data);
+	void setVertexBoneIdData(BoneIdData data);
 	void enablePosition();
 	void enableUV();
 	void enableNormals();
 	void enableTangents();
 	void enableBitangents();
+	void enableVertexWeights();
+	void enableBoneIds();
 	void bindVAO();
 };
 

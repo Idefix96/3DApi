@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "AmbientLight.h"
 
 float AmbientLight::getIntensity()

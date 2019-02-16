@@ -10,5 +10,5 @@ uniform mat4 gScaling;
 
 void main()
 {	
-	gl_Position = gPersp*gWorldToCamera*gScaling*gRotation*gTranslation*vec4(Position.x, Position.y, Position.z, 1.0);
+	gl_Position = gPersp*gWorldToCamera*gTranslation*gRotation*gScaling*vec4(Position.x, Position.y, Position.z, 1.0);
 }

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "BoundingBox.h"
 
 BoundingBox::BoundingBox(float width, float height, float depth) :

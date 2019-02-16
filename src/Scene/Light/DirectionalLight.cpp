@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DirectionalLight.h"
 
 float DirectionalLight::getIntensity()

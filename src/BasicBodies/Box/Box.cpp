@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Box.h"
 
 Box::Box(float width, float height, float depth) :

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Box2D.h"
 #include "GL\glew.h"
 

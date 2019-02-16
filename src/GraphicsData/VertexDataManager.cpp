@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "VertexDataManager.h"
 #include <iostream>
 
@@ -102,6 +103,42 @@ void VertexDataManager::setVertexBitangentData(BitangentData data)
 	m_VAO.enableAttribute(this->m_bitangent.m_index);
 }
 
+void VertexDataManager::setVertexWeightData(VertexWeightData data)
+{
+	this->m_VAO.bind();
+	this->m_VBO.bind();
+
+	this->m_vertexWeight.m_index = 6;
+	this->m_vertexWeight.m_size = 4;
+	this->m_vertexWeight.m_type = GL_FLOAT;
+	this->m_vertexWeight.m_stride = sizeof(VertexWeights);
+	this->m_vertexWeight.m_offsetPointer = (void*)(m_bufferActiveSize);
+	this->m_vertexWeightData = data;
+
+	glBufferSubData(GL_ARRAY_BUFFER, m_bufferActiveSize, sizeof(VertexWeights)*this->m_vertexWeightData.size(), &this->m_vertexWeightData[0]);
+	m_bufferActiveSize += sizeof(VertexWeights)*this->m_vertexWeightData.size();
+	m_VAO.setAttribute(this->m_vertexWeight);
+	m_VAO.enableAttribute(this->m_vertexWeight.m_index);
+}
+
+void VertexDataManager::setVertexBoneIdData(BoneIdData data)
+{
+	this->m_VAO.bind();
+	this->m_VBO.bind();
+
+	this->m_boneId.m_index = 7;
+	this->m_boneId.m_size = 4;
+	this->m_boneId.m_type = GL_FLOAT;
+	this->m_boneId.m_stride = sizeof(BoneId);
+	this->m_boneId.m_offsetPointer = (void*)(m_bufferActiveSize);
+	this->m_boneIdData = data;
+
+	glBufferSubData(GL_ARRAY_BUFFER, m_bufferActiveSize, sizeof(BoneId)*this->m_boneIdData.size(), &this->m_boneIdData[0]);
+	m_bufferActiveSize += sizeof(BoneId)*this->m_boneIdData.size();
+	m_VAO.setAttribute(this->m_boneId);
+	m_VAO.enableAttribute(this->m_boneId.m_index);
+}
+
 void VertexDataManager::setVertexColorData(ColorData data)
 {
 	this->m_VAO.bind();
@@ -155,6 +192,15 @@ void VertexDataManager::enableTangents()
 }
 
 void VertexDataManager::enableBitangents()
+{
+
+}
+
+void VertexDataManager::enableVertexWeights()
+{
+
+}
+void VertexDataManager::enableBoneIds()
 {
 
 }

@@ -22,6 +22,8 @@ typedef glm::quat Rotation;
 typedef glm::vec3 Scale;
 typedef glm::vec4 AlphaColor;
 typedef glm::vec2 Position2D;
+typedef glm::vec4 VertexWeights;
+typedef glm::vec4 BoneId;
 
 typedef std::vector<Position> PositionData;
 typedef std::vector<UVCoordinates> UVData;
@@ -30,6 +32,9 @@ typedef std::vector<Tangent> TangentData;
 typedef std::vector<Bitangent> BitangentData;
 typedef std::vector<int> IndexData;
 typedef std::vector<AlphaColor> ColorData;
+typedef std::vector<VertexWeights> VertexWeightData;
+typedef std::vector<BoneId> BoneIdData;
+typedef glm::mat4 SkeletonTransformation[100];
 
 typedef struct {
 	Position m_position;
@@ -38,18 +43,24 @@ typedef struct {
 	Tangent m_tangent;
 	Bitangent m_bitangent;
 	AlphaColor m_color;
+	glm::vec4 m_weights;
+	glm::vec4 m_boneId;
 }Vertex;
 
 typedef struct Bone
 {
-	unsigned int			m_index;
-	std::string				m_name;
-	glm::mat4				m_offsetMatrix;
-	glm::mat4				m_transformationMatrix;
-	Bone*					m_parent;
-	glm::mat4				m_animationTransform;
+	std::string					m_name;
+	std::string					m_parentName;
+	glm::mat4					m_offsetMatrix;
+	glm::mat4					m_transformationMatrix;
+	Bone*						m_parent;
+	glm::mat4					m_animationTransform;
+	std::vector<int>			m_vertexIds;
+	std::vector<float>			m_vertexWeights;
+	glm::mat4					m_overallMatrix;
+	int							m_index;
 }Bone;
 
-typedef std::map<std::string, Bone> Skeleton;
+typedef std::map<std::string, Bone> BoneHierarchy;
 
 #endif
