@@ -166,5 +166,10 @@ void Mesh3D::setSkeleton(Skeleton skeleton)
 
 void Mesh3D::update()
 {
-	this->m_MainSkeleton.rotateBoneGlobal("neck", glm::vec3(0, 1, 0), 0.1f);
+	//this->m_MainSkeleton.rotateBoneGlobal("neck", glm::vec3(0, 1, 0), 0.1f);
+}
+
+void Mesh3D::rotateBoneGlobal(std::string name, glm::vec3 rotationAxis, float rad)
+{
+	this->m_MainSkeleton.rotateBoneGlobal(name, rotationAxis, rad);
 }

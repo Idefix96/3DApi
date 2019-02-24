@@ -64,7 +64,7 @@ public:
 		}
 		for (auto&& mesh : m_meshes)
 		{	
-			mesh.first->update();
+			//mesh.first->update();
 			mesh.first->Draw(mesh.second);
 		}
 		glBindVertexArray(NULL);

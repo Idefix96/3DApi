@@ -44,11 +44,11 @@ void main()
 		BoneTransform += gBoneTransform[int(BoneIds.w)] * Weights.w;
 	}
 
-	Position_FS = vec4(Position.x, Position.y, Position.z, 1.0);
+	Position_FS = gRotation*gScaling*BoneTransform*vec4(Position.x, Position.y, Position.z, 1.0);
 	UV_FS = UV;
 	Color_FS = Color;
-	Tangent_FS = vec4(Tangent.x, Tangent.y, Tangent.z, 0.0);
-	Bitangent_FS = vec4(Bitangent.x, Bitangent.y, Bitangent.z, 0.0);
-	NormalTF = 	vec4(Normal.x, Normal.y, Normal.z, 0.0);
+	Tangent_FS = gRotation*gScaling*BoneTransform*vec4(Tangent.x, Tangent.y, Tangent.z, 0.0);
+	Bitangent_FS = gRotation*gScaling*BoneTransform*vec4(Bitangent.x, Bitangent.y, Bitangent.z, 0.0);
+	NormalTF = 	gRotation*gScaling*BoneTransform*vec4(Normal.x, Normal.y, Normal.z, 0.0);
 	gl_Position = gPersp*gWorldToCamera*gTranslation*gRotation*gScaling*BoneTransform*vec4(Position.x, Position.y, Position.z, 1.0);
 }

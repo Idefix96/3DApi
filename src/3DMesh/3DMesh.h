@@ -61,7 +61,7 @@ public:
 	void setSkeleton(BoneHierarchy skeleton);
 	void setSkeleton(Skeleton skeleton);
 	void update();
-	
+	void rotateBoneGlobal(std::string name, glm::vec3 rotationAxis, float rad);
 	Shader* getShader();
 };
 

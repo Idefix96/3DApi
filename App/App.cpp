@@ -111,9 +111,15 @@ int main()
 		ImGui::SFML::Update(window, deltaClock.restart());
 		bool open = true;
 
-		ImGui::Begin("Sample window", &open, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoMove); // begin window
-	
-		if (ImGui::Button("Quit")) {
+		ImGui::Begin("Sample window", &open, ImVec2(0, 0), 0.0f, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize  | ImGuiWindowFlags_NoMove); // begin window
+		
+		ImGui::Button("Update", ImVec2(100,50));
+		if (ImGui::IsItemActive()) {
+			rex.rotateBoneGlobal("neck", glm::vec3(0, 1, 0), 0.1f);;
+		}
+		ImGui::Separator();
+		ImGui::Button("Quit");
+		if (ImGui::IsItemClicked()) {
 			running = false;
 		}
 		ImGui::End(); // end window
