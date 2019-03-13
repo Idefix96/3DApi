@@ -9,6 +9,7 @@
 #include "glm/gtx/transform.hpp"
 #include "Shader\Shader.h"
 #include "Animation\Skeleton.h"
+#include "Animation\Animation.h"
 
 class Mesh3D
 {
@@ -37,7 +38,11 @@ protected:
 	SkeletonTransformation	m_skeletonTransformation;
 
 	Skeleton				m_MainSkeleton;
-	
+	int						m_numAnimations;
+	float					m_animationTime;
+
+	std::map<std::string, Animation>	m_Animations;
+	sf::Clock				m_AnimationTimer;
 public:
 	Mesh3D();
 	~Mesh3D();
@@ -62,6 +67,10 @@ public:
 	void setSkeleton(Skeleton skeleton);
 	void update();
 	void rotateBoneGlobal(std::string name, glm::vec3 rotationAxis, float rad);
+	void Animate(float fTime, std::string iAnimationIndex);
+	void addAnimation(Animation animation);
+	std::vector<Animation>* getAnimations();
+	void setAnimations(std::map<std::string, Animation> animations);
 	Shader* getShader();
 };
 

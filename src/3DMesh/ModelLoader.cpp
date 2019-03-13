@@ -87,6 +87,10 @@ int ModelLoader::load(std::string fileName,  Mesh3D* mesh)
 		{
 			this->loadSkeleton(this->m_scene->mMeshes[i]);
 		}
+		if (m_scene->HasAnimations())
+		{
+			this->loadAnimations(this->m_scene->mMeshes[i]);
+		}
 	}
 
 	mesh->setPositionData(this->getPositionData());
@@ -99,13 +103,12 @@ int ModelLoader::load(std::string fileName,  Mesh3D* mesh)
 	mesh->setVertexWeightData(this->m_vertexWeightData);
 	mesh->setBoneIdData(this->m_boneIdData);
 	mesh->setSkeleton(this->m_mainSkeleton);
+	mesh->setAnimations(this->m_animations);
 	return 1;
 }
 
 int ModelLoader::loadSkeleton(aiMesh* mesh)
 {
-
-
 	for (unsigned int j = 0; j < mesh->mNumBones; j++)
 	{
 		aiNode *bone = this->m_scene->mRootNode->FindNode(mesh->mBones[j]->mName.data);
@@ -170,6 +173,34 @@ int ModelLoader::loadSkeleton(aiMesh* mesh)
 		}
 	}
 	
+	return 1;
+}
+
+int ModelLoader::loadAnimations(aiMesh* mesh)
+{
+	for (int i = 0; i <= this->m_scene->mNumAnimations - 1; i++)
+	{
+		Animation animation;
+		animation.setName(this->m_scene->mAnimations[i]->mName.data);
+		animation.setDuration(this->m_scene->mAnimations[i]->mDuration);
+		animation.setTicksPerSecond(this->m_scene->mAnimations[i]->mTicksPerSecond);
+		animation.setNumChannels(this->m_scene->mAnimations[i]->mNumChannels);
+		for (int j = 0; j <= this->m_scene->mAnimations[i]->mNumChannels - 1; j++)
+		{
+			Channel channel;
+			
+			for (int k = 0; k <= this->m_scene->mAnimations[i]->mChannels[j]->mNumPositionKeys - 1; k++)
+			{
+				channel.v3KeyPositions.push_back(glm::vec3(this->m_scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.x, this->m_scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.y, this->m_scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mValue.z));
+				channel.qKeyRotations.push_back(glm::quat(this->m_scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.w, this->m_scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.x, this->m_scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.y, this->m_scene->mAnimations[i]->mChannels[j]->mRotationKeys[k].mValue.z));
+				channel.v3KeyScales.push_back(glm::vec3(this->m_scene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.x, this->m_scene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.y, this->m_scene->mAnimations[i]->mChannels[j]->mScalingKeys[k].mValue.z));
+				channel.fTimeStamp.push_back(this->m_scene->mAnimations[i]->mChannels[j]->mPositionKeys[k].mTime);
+			}
+			animation.addChannel({ this->m_scene->mAnimations[i]->mChannels[j]->mNodeName.data, channel });
+		}
+		this->m_animations.insert({ this->m_scene->mAnimations[i]->mName.data, animation });
+	}
+
 	return 1;
 }
 

@@ -9,6 +9,7 @@
 #include "Material\Material.h"
 #include "3DMesh\3DMesh.h"
 #include "Animation\Skeleton.h"
+#include "Animation\Animation.h"
 
 class ModelLoader
 {
@@ -27,9 +28,12 @@ private:
 	std::string m_folderName;
 	BoneHierarchy m_skeleton;
 	Skeleton m_mainSkeleton;
+	std::map<std::string, Animation> m_animations;
+
 public:
 	int load(std::string fileName, Mesh3D* mesh);
 	int loadSkeleton(aiMesh* mesh);
+	int loadAnimations(aiMesh* mesh);
 	PositionData getPositionData();
 	NormalData getNormalData();
 	IndexData getIndexData();

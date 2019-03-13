@@ -7,6 +7,8 @@ Mesh3D::Mesh3D()
 	m_translationMatrix = TranslationMatrix(1.0f);
 	m_rotationMatrix = RotationMatrix(1.0f);
 	m_scalingMatrix = ScalingMatrix(1.0f);
+	this->m_animationTime = 0.0f;
+	this->m_numAnimations = 0;
 }
 
 Mesh3D::~Mesh3D()
@@ -172,4 +174,33 @@ void Mesh3D::update()
 void Mesh3D::rotateBoneGlobal(std::string name, glm::vec3 rotationAxis, float rad)
 {
 	this->m_MainSkeleton.rotateBoneGlobal(name, rotationAxis, rad);
+}
+
+void Mesh3D::setAnimations(std::map<std::string, Animation> animations)
+{
+	this->m_Animations = animations;
+	this->m_numAnimations = animations.size();
+}
+
+void Mesh3D::Animate(float fTime, std::string iAnimationIndex)
+{
+	if (this->m_numAnimations > 0)
+	{
+		this->m_animationTime += fTime;
+		if (this->m_animationTime > 1000000.0*m_Animations[iAnimationIndex].getDuration() / m_Animations[iAnimationIndex].getTicksPerSecond())
+			this->m_animationTime -= 1000000.0*m_Animations[iAnimationIndex].getDuration() / m_Animations[iAnimationIndex].getTicksPerSecond();
+
+		std::map<std::string, Channel> channels = m_Animations[iAnimationIndex].getChannels();
+
+		for (std::map<std::string, Channel>::iterator i = channels.begin(); i != channels.end(); i++)
+		{
+			this->m_MainSkeleton.setBoneTransformation(i->first, this->m_Animations[iAnimationIndex].InterpolateKeyFrames(i->first, (float)this->m_AnimationTimer.getElapsedTime().asMicroseconds()));
+		}
+		this->m_MainSkeleton.update();
+		if ((m_AnimationTimer.getElapsedTime().asMicroseconds() > 1000000.0*this->m_Animations[iAnimationIndex].getDuration() / this->m_Animations[iAnimationIndex].getTicksPerSecond()) 
+			)
+		{
+			m_AnimationTimer.restart();
+		}
+	}
 }

@@ -36,6 +36,11 @@ void Skeleton::update()
 	}
 }
 
+void Skeleton::setBoneTransformation(std::string bone, glm::mat4 transformation)
+{
+	this->m_hierarchy[bone].m_transformationMatrix = transformation;
+}
+
 void Skeleton::rotateBoneLocal(std::string boneName, glm::vec3 axis, float angle)
 {
 	this->m_hierarchy[std::string(boneName)].m_transformationMatrix = glm::rotate(this->m_hierarchy[boneName].m_transformationMatrix, angle, axis);

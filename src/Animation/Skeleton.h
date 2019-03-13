@@ -12,4 +12,5 @@ public:
 	void update();
 	void rotateBoneGlobal(std::string boneName, glm::vec3 axis, float angle);
 	void rotateBoneLocal(std::string boneName, glm::vec3 axis, float angle);
+	void setBoneTransformation(std::string bone, glm::mat4 transformation);
 };

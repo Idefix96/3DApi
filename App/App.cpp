@@ -68,8 +68,10 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 
 	bool running = true;
+	sf::Clock timer;
 	while (running)
 	{	
+		rex.Animate(timer.getElapsedTime().asMicroseconds(), "metarig|metarigAction");
 		physics.update();
 		// handle events
 		sf::Event event;
@@ -110,12 +112,13 @@ int main()
 
 		ImGui::SFML::Update(window, deltaClock.restart());
 		bool open = true;
-
+		ImGui::SetNextWindowPos(ImVec2(20, 20));
+		ImGui::SetNextWindowSize(ImVec2(100, 50));
 		ImGui::Begin("Sample window", &open, ImVec2(0, 0), 0.0f, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize  | ImGuiWindowFlags_NoMove); // begin window
 		
 		ImGui::Button("Update", ImVec2(100,50));
 		if (ImGui::IsItemActive()) {
-			rex.rotateBoneGlobal("neck", glm::vec3(0, 1, 0), 0.1f);;
+			rex.rotateBoneGlobal("neck", glm::vec3(0, 1, 0), 0.1f);
 		}
 		ImGui::Separator();
 		ImGui::Button("Quit");
