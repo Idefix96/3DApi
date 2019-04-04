@@ -22,7 +22,7 @@
 namespace fs = std::experimental::filesystem;
 int main()
 {
-	fs::create_directories("sandbox/a/b");
+
 	// create the window
 	sf::ContextSettings Settings;
 	Settings.depthBits = 24;
