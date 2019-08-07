@@ -43,6 +43,9 @@ protected:
 
 	std::map<std::string, Animation>	m_Animations;
 	sf::Clock				m_AnimationTimer;
+	GLenum					m_mode;
+	
+
 public:
 	Mesh3D();
 	~Mesh3D();
@@ -59,6 +62,7 @@ public:
 	void setMaterial(Material material);
 	void Draw(GLuint shader);
 	void rotate(Direction angle);
+	void rotate(glm::quat qRotation);
 	void translate(Position position);
 	void scale(Scale scale);
 	bool hasColor();
@@ -72,6 +76,9 @@ public:
 	std::vector<Animation>* getAnimations();
 	void setAnimations(std::map<std::string, Animation> animations);
 	Shader* getShader();
+	glm::vec3				m_upperRightBackBoundingCorner;
+	glm::vec3				m_lowerLeftFrontBoundingCorner;
+	void setMode(GLenum mode);
 };
 
 #endif

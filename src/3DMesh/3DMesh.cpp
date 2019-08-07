@@ -9,6 +9,9 @@ Mesh3D::Mesh3D()
 	m_scalingMatrix = ScalingMatrix(1.0f);
 	this->m_animationTime = 0.0f;
 	this->m_numAnimations = 0;
+	m_mode = GL_TRIANGLES;
+	m_upperRightBackBoundingCorner = glm::vec3(0);
+	m_lowerLeftFrontBoundingCorner = glm::vec3(0);
 }
 
 Mesh3D::~Mesh3D()
@@ -106,9 +109,9 @@ void Mesh3D::Draw(GLuint shader)
 	glUniform1i(glGetUniformLocation(shader, "normalMap"), 1);
 	
 	if (this->m_indexData.size() > 0)
-		glDrawElements(GL_TRIANGLES, this->m_indexData.size(), GL_UNSIGNED_INT, 0);
+		glDrawElements(m_mode, this->m_indexData.size(), GL_UNSIGNED_INT, 0);
 	else
-		glDrawArrays(GL_TRIANGLES, 0, this->m_positionData.size());
+		glDrawArrays(m_mode, 0, this->m_positionData.size());
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D,NULL);
 }
@@ -118,6 +121,16 @@ void Mesh3D::rotate(Direction angle)
 	this->m_rotationMatrix = glm::rotate(glm::mat4(1.0f), angle.x, glm::vec3(1, 0, 0));
 	this->m_rotationMatrix *= glm::rotate(glm::mat4(1.0f), angle.y, glm::vec3(0, 1, 0));
 	this->m_rotationMatrix *= glm::rotate(glm::mat4(1.0f), angle.z, glm::vec3(0, 0, 1));
+}
+
+void Mesh3D::rotate(glm::quat qRotation)
+{
+	glm::quat qRot;
+	qRot.w = qRotation.w;
+	qRot.x = qRotation.x;
+	qRot.y = qRotation.y;
+	qRot.z = qRotation.z;
+	this->m_rotationMatrix = glm::toMat4(qRot);
 }
 
 
@@ -168,7 +181,7 @@ void Mesh3D::setSkeleton(Skeleton skeleton)
 
 void Mesh3D::update()
 {
-	//this->m_MainSkeleton.rotateBoneGlobal("neck", glm::vec3(0, 1, 0), 0.1f);
+	this->m_MainSkeleton.rotateBoneGlobal("neck", glm::vec3(0, 1, 0), 0.1f);
 }
 
 void Mesh3D::rotateBoneGlobal(std::string name, glm::vec3 rotationAxis, float rad)
@@ -203,4 +216,9 @@ void Mesh3D::Animate(float fTime, std::string iAnimationIndex)
 			m_AnimationTimer.restart();
 		}
 	}
+}
+
+void Mesh3D::setMode(GLenum mode)
+{
+	this->m_mode = mode;
 }

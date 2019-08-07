@@ -24,3 +24,10 @@ void Physics::update()
 {
 	m_dynamicsWorld->stepSimulation(BULLET_TIME_STEP, BULLET_SUBSTEPS);
 }
+
+void Physics::addPhysicModel(PhysicModel* newModel)
+{
+	m_dynamicsWorld->addRigidBody(newModel->getRigidBody());
+
+	m_models.push_back(newModel);
+}

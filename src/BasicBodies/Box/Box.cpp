@@ -115,4 +115,6 @@ Box::Box(float width, float height, float depth) :
 	this->setPositionData(pd);
 	this->setNormalData(nd);
 	this->setIndexData(id);	
+	this->m_upperRightBackBoundingCorner = glm::vec3(1);
+	this->m_lowerLeftFrontBoundingCorner = glm::vec3(-1);
 }

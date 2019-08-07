@@ -19,11 +19,11 @@
 #include <fstream>
 #include <iostream>
 #include "Physics\PhysicModel.h"
-#include "World\WorldModel.h"
 
 namespace fs = std::experimental::filesystem;
 int main()
 {
+
 	// create the window
 	sf::ContextSettings Settings;
 	Settings.depthBits = 24;
@@ -40,10 +40,14 @@ int main()
 
 	window.setVerticalSyncEnabled(true);
 	Physics physics;
+	PhysicModel model;
+	model.ApplySphereShape(1.0f, 1.0f, glm::quat(0, 0, 0, 1), glm::vec3(0, 100, 0));
+	physics.addPhysicModel(&model);
 	window.setActive(true);
 	glewInit();
 	Shader shader;
-	shader.loadProgram("simple");
+	//shader.loadProgram("simple");
+	shader.loadProgram("Skeletal");
 	Camera camera;
 	AmbientLight light;
 	light.setIntensity(0.2);
@@ -52,16 +56,16 @@ int main()
 	dirLight.setIntensity(1.0);
 	dirLight.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	dirLight.setDirection(Direction(0.0, -1.0, -1.0));
+	ModelLoader loader;
+	Mesh3D rex;
+	loader.load("Rex_sk/Rex.fbx", &rex);
 	Scene scene;
-	WorldModel worldModel;
-	worldModel.m_model->ApplySphereShape(1.0f, 1.0f, glm::quat(0, 0, 0, 1), glm::vec3(0, 100, 0), false);
-	worldModel.m_mesh = new Box();
-	physics.addPhysicModel(worldModel.m_model);
+
 	scene.addAmbientLight(&light);
 	scene.addDirectionalLight(&dirLight);
 	scene.addCamera(&camera);
 	scene.addShader(&shader);
-	scene.addMesh(worldModel.m_mesh, shader.getShaderID());
+	scene.addMesh(&rex, shader.getShaderID());
 
 	// run the main loop
 	glClearColor(0.4, 0.4, 0.4, 1.0);
@@ -71,10 +75,9 @@ int main()
 	sf::Clock timer;
 	while (running)
 	{	
-		worldModel.m_mesh->Animate(timer.getElapsedTime().asMicroseconds(), "metarig|metarigAction");
+		rex.Animate(timer.getElapsedTime().asMicroseconds(), "metarig|metarigAction");
 		physics.update();
-		std::cout << worldModel.m_model->getRigidBody()->getWorldTransform().getOrigin().getY() << std::endl;
-		worldModel.Update();
+		std::cout << model.getRigidBody()->getWorldTransform().getOrigin().getY() << std::endl;
 		// handle events
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -117,7 +120,11 @@ int main()
 		ImGui::SetNextWindowPos(ImVec2(20, 20));
 		ImGui::SetNextWindowSize(ImVec2(100, 50));
 		ImGui::Begin("Sample window", &open, ImVec2(0, 0), 0.0f, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize  | ImGuiWindowFlags_NoMove); // begin window
-		 
+		
+		ImGui::Button("Update", ImVec2(100,50));
+		if (ImGui::IsItemActive()) {
+			rex.rotateBoneGlobal("head", glm::vec3(1, 1, 0), 0.7f);
+		}
 		ImGui::Separator();
 		ImGui::Button("Quit");
 		if (ImGui::IsItemClicked()) {

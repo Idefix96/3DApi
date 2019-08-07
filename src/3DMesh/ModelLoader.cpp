@@ -37,6 +37,32 @@ int ModelLoader::load(std::string fileName,  Mesh3D* mesh)
 				this->m_vertexWeightData.push_back(glm::vec4(0.0f));
 				this->m_boneIdData.push_back(glm::vec4(0.0f));
 			}
+
+			if (this->m_scene->mMeshes[i]->mVertices[j].x > mesh->m_upperRightBackBoundingCorner.x)
+			{
+				mesh->m_upperRightBackBoundingCorner.x = this->m_scene->mMeshes[i]->mVertices[j].x;
+			}
+			if (this->m_scene->mMeshes[i]->mVertices[j].y > mesh->m_upperRightBackBoundingCorner.y)
+			{
+				mesh->m_upperRightBackBoundingCorner.y = this->m_scene->mMeshes[i]->mVertices[j].y;
+			}
+			if (this->m_scene->mMeshes[i]->mVertices[j].z > mesh->m_upperRightBackBoundingCorner.z)
+			{
+				mesh->m_upperRightBackBoundingCorner.z = this->m_scene->mMeshes[i]->mVertices[j].z;
+			}
+
+			if (this->m_scene->mMeshes[i]->mVertices[j].x < mesh->m_lowerLeftFrontBoundingCorner.x)
+			{
+				mesh->m_lowerLeftFrontBoundingCorner.x = this->m_scene->mMeshes[i]->mVertices[j].x;
+			}
+			if (this->m_scene->mMeshes[i]->mVertices[j].y < mesh->m_lowerLeftFrontBoundingCorner.y)
+			{
+				mesh->m_lowerLeftFrontBoundingCorner.y = this->m_scene->mMeshes[i]->mVertices[j].y;
+			}
+			if (this->m_scene->mMeshes[i]->mVertices[j].z < mesh->m_lowerLeftFrontBoundingCorner.z)
+			{
+				mesh->m_lowerLeftFrontBoundingCorner.z = this->m_scene->mMeshes[i]->mVertices[j].z;
+			}
 		}
 		
 		for (unsigned int k = 0; k < this->m_scene->mMeshes[i]->mNumFaces; k++)

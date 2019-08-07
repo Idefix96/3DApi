@@ -3,6 +3,7 @@
 
 #include "Config.h"
 #include "btBulletDynamicsCommon.h"
+#include "PhysicModel.h"
 
 class Physics
 {
@@ -13,11 +14,13 @@ private:
 	btCollisionDispatcher*						m_dispatcher;
 	btCollisionWorld::ClosestRayResultCallback*	m_RayCallback;
 	btDiscreteDynamicsWorld*					m_dynamicsWorld;
+	std::vector<PhysicModel*>					m_models;
 public:
 	Physics();
 	~Physics();
 
 	void update();
+	void addPhysicModel(PhysicModel* NewModel);
 };
 
-#endif
+#endif 
